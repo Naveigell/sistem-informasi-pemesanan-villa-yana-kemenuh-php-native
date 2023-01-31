@@ -16,4 +16,8 @@ class User extends Model
     const ROLE_ADMIN    = "admin";
     const ROLE_CUSTOMER = "customer";
     const ROLE_STAFF    = "staff";
+
+    public function biodata() {
+        return $this->hasOne(Biodata::class, 'user_id');
+    }
 }

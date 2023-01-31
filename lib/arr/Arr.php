@@ -14,4 +14,9 @@ class Arr
             return in_array($key, $keys);
         }, ARRAY_FILTER_USE_BOTH);
     }
+
+    public static function pluck(array $array, $column)
+    {
+        return array_column($array, $column);
+    }
 }
