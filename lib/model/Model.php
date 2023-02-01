@@ -21,6 +21,9 @@ class Model implements CreateReadUpdateDelete
 
     private $data = [];
 
+    private $rawSql = null;
+    private $rawBindings = null;
+
     public function __construct()
     {
         $conn = Connection::instance();
@@ -155,6 +158,17 @@ class Model implements CreateReadUpdateDelete
         }
 
         return $model;
+    }
+
+    public function raw(string $sql, array $bindings = [])
+    {
+        $this->rawSql = $sql;
+        $this->rawBindings = $bindings;
+
+        $statement = $this->connection->prepare($sql);
+        $statement->execute($bindings);
+
+        return $statement;
     }
 
     public function getTableName()

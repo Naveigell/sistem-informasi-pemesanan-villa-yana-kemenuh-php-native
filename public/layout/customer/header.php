@@ -37,7 +37,7 @@
 <!--            </div>-->
 <!--        </li>-->
         <li class="dropdown">
-            <a href="#" data-toggle="dropdown" class="nav-link nav-link-lg nav-link-user">
+            <a href="<?= $routes['auth.login.index']; ?>" class="nav-link nav-link-lg nav-link-user">
                 <i class="fa fa-user"></i>
             </a>
         </li>

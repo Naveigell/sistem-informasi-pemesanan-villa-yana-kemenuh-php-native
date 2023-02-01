@@ -23,3 +23,15 @@ if (!function_exists('str_random')) {
         return $string;
     }
 }
+
+if (!function_exists('redirect_with_javascript')) {
+    function redirect_with_javascript($url) {
+        echo "<script>window.location.href = {$url}</script>";
+    }
+}
+
+if (!function_exists('redirect')) {
+    function redirect($path) {
+        header("Location: " . DOMAIN . "/" . $path);
+    }
+}

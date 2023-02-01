@@ -6,4 +6,6 @@ namespace Lib\Model;
 interface CreateReadUpdateDelete
 {
     public function create(array $attributes = []);
+
+    public function raw(string $sql, array $bindings = []);
 }
