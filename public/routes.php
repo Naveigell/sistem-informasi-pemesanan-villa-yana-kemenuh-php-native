@@ -17,4 +17,10 @@ return [
     "admin.rooms.facilities.store" => "actions/admin/facility_store.php",
     "admin.rooms.facilities.update" => "actions/admin/facility_update.php",
     "admin.rooms.facilities.destroy" => "actions/admin/facility_destroy.php",
+
+    "admin.rooms.galleries.index" => "admin/gallery.php",
+    "admin.rooms.galleries.form" => "admin/gallery_form.php",
+    "admin.rooms.galleries.store" => "actions/admin/gallery_store.php",
+    "admin.rooms.galleries.update" => "actions/admin/gallery_update.php",
+    "admin.rooms.galleries.destroy" => "actions/admin/gallery_destroy.php",
 ];
