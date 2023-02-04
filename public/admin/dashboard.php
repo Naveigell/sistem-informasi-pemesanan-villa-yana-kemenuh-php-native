@@ -5,6 +5,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <title>Layout &rsaquo; Default &mdash; Stisla</title>
 
+    <?php require_once '../../server.php'; ?>
     <?php require_once "../layout/admin/style.php"; ?>
 </head>
 

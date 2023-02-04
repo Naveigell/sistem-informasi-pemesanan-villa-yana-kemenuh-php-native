@@ -2,8 +2,8 @@
 
 if (!function_exists('times')) {
     function times($number, callable $callback) {
-        foreach (range(1, $number) as $num) {
-            $callback();
+        foreach (range(0, $number - 1) as $index) {
+            $callback($index);
         }
     }
 }
@@ -33,5 +33,23 @@ if (!function_exists('redirect_with_javascript')) {
 if (!function_exists('redirect')) {
     function redirect($path) {
         header("Location: " . DOMAIN . "/" . $path);
+    }
+}
+
+if (!function_exists('format_currency')) {
+    function format_currency($price, $currency = 'Rp.', $decimal = 0, $decimalSeparator = ',', $thousandSeparator = '.') {
+        return $currency . ' ' . number_format($price, $decimal, $decimalSeparator, $thousandSeparator);
+    }
+}
+
+if (!function_exists('route')) {
+    function route(string $name) {
+        global $routes;
+
+        if (array_key_exists($name, $routes)) {
+            return DOMAIN . DIRECTORY_SEPARATOR . $routes[$name];
+        }
+
+        return '';
     }
 }

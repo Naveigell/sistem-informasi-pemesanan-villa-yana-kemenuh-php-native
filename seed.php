@@ -59,7 +59,7 @@ times(5, function () {
         "description" => "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, aut beatae earum, eius eum ex expedita fugiat maiores, minima modi quaerat quod quos rerum similique ullam. Architecto maxime nemo porro!",
     ]);
 
-    times(mt_rand(2, 4), function () use ($room) {
+    times(mt_rand(2, 4), function ($index) use ($room) {
         $name = str_random(40) . ".jpg";
 
         if (!file_exists('./public/uploads/images/rooms')) {
@@ -71,6 +71,7 @@ times(5, function () {
         \App\Models\RoomImage::instance()->create([
             "room_id" => $room->id,
             "name"    => $name,
+            "is_main" => $index == 0 ? 1 : 0,
         ]);
     });
 

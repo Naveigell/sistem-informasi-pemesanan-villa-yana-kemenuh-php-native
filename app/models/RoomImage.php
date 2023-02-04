@@ -11,5 +11,5 @@ class RoomImage extends Model
 
     protected $table = 'room_images';
 
-    protected $fillable = ['room_id', 'name'];
+    protected $fillable = ['room_id', 'name', 'is_main'];
 }

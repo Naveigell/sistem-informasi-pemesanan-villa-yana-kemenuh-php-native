@@ -175,4 +175,12 @@ class Model implements CreateReadUpdateDelete
     {
         return $this->table;
     }
+
+    /**
+     * @return array
+     */
+    public function getFillable(): array
+    {
+        return $this->fillable;
+    }
 }
