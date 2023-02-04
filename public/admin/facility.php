@@ -9,7 +9,7 @@
     <?php require_once "../layout/admin/style.php"; ?>
 
     <?php
-        $rooms = \App\Models\Room::instance()->with('image')->getAll();
+        $facilities = \App\Models\Facility::instance()->raw("SELECT * FROM facilities WHERE room_id = ?", [$_GET['room_id']])->fetchAll(PDO::FETCH_OBJ);
     ?>
 </head>
 
@@ -24,10 +24,10 @@
         <div class="main-content">
             <section class="section">
                 <div class="section-header">
-                    <h1>Kamar</h1>
+                    <h1>Fasilitas</h1>
                     <div class="section-header-breadcrumb">
                         <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                        <div class="breadcrumb-item">Kamar</div>
+                        <div class="breadcrumb-item">Fasilitas</div>
                     </div>
                 </div>
 
@@ -36,9 +36,9 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4>Kamar</h4>
+                                    <h4>Fasilitas</h4>
                                     <div class="card-header-action">
-                                        <a href="<?= route('admin.rooms.form'); ?>" class="btn btn-primary">Tambah Kamar</a>
+                                        <a href="<?= route('admin.rooms.facilities.form') . '?' . http_build_query(["room_id" => $_GET['room_id']]); ?>" class="btn btn-primary">Tambah Fasilitas</a>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -48,24 +48,19 @@
                                                 <table class="table table-bordered table-md dataTable" id="table-1">
                                                     <thead>
                                                     <tr>
-                                                        <th>Nomor</th>
-                                                        <th>Foto</th>
+                                                        <th class="col-1">#</th>
                                                         <th>Nama</th>
-                                                        <th>Harga</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php foreach ($rooms as $room): ?>
+                                                        <?php foreach ($facilities as $index => $facility): ?>
                                                             <tr>
-                                                                <td><?= $room->room_number; ?></td>
-                                                                <td><img src="../../uploads/images/rooms/<?= $room->image->name; ?>" alt="" style="width: 150px; height: 150px;"></td>
-                                                                <td><?= $room->name; ?></td>
-                                                                <td><?= format_currency($room->price); ?></td>
+                                                                <td><?= $index + 1; ?></td>
+                                                                <td><?= $facility->name; ?></td>
                                                                 <td>
-                                                                    <a href="<?= route('admin.rooms.form') . '?' . http_build_query(['id' => $room->id]); ?>" class="btn btn-primary"><i class="fa fa-pen"></i></a>
-                                                                    <button data-toggle="modal" data-target="#destroy-modal" data-url="<?= route('admin.rooms.destroy') . '?' . http_build_query(['id' => $room->id]); ?>" class="btn btn-danger btn-delete"><i class="fa fa-trash"></i></button>
-                                                                    <a href="<?= route('admin.rooms.facilities.index') . '?' . http_build_query(['room_id' => $room->id]); ?>" class="btn btn-success"><i class="fa fa-list"></i></a>
+                                                                    <a href="<?= route('admin.rooms.facilities.form') . '?' . http_build_query(['id' => $facility->id, 'room_id' => $_GET['room_id']]); ?>" class="btn btn-primary"><i class="fa fa-pen"></i></a>
+                                                                    <button data-toggle="modal" data-target="#destroy-modal" data-url="<?= route('admin.rooms.facilities.destroy') . '?' . http_build_query(['id' => $facility->id, 'room_id' => $_GET['room_id']]); ?>" class="btn btn-danger btn-delete"><i class="fa fa-trash"></i></button>
                                                                 </td>
                                                             </tr>
                                                         <?php endforeach; ?>
@@ -92,7 +87,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Hapus ruangan?</p>
+                        <p>Hapus fasilitas?</p>
                     </div>
                     <div class="modal-footer bg-whitesmoke br">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
