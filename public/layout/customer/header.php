@@ -26,7 +26,7 @@
                         <div class="d-sm-none d-lg-inline-block"><?= $user['email']; ?></div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a href="<?= route('customers.profile.index'); ?>" class="dropdown-item has-icon">
+                        <a href="<?= route('customers.orders.index'); ?>" class="dropdown-item has-icon">
                             <i class="fa fa-shopping-cart"></i> Pemesanan
                         </a>
                         <a href="<?= route('customers.profile.index'); ?>" class="dropdown-item has-icon">

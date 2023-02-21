@@ -9,6 +9,10 @@ return [
     "customers.profile.store" => "actions/customer/biodata_update.php",
     "customers.profile.password.store" => "actions/customer/password_update.php",
 
+    "customers.orders.index" => "customer/order.php",
+    "customers.orders.complaints.index" => "customer/complaint.php",
+    "customers.orders.complaints.store" => "actions/customer/complaint_store.php",
+
     "rooms.detail" => "customer/room_detail.php",
     "rooms.bookings.store" => "actions/customer/room_store.php",
 

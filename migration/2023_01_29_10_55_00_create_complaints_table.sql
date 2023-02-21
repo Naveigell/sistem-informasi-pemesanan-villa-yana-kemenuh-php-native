@@ -1,7 +1,8 @@
 create table if not exists complaints(
     id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     user_id BIGINT UNSIGNED NOT NULL,
-    room_id BIGINT UNSIGNED NULL,
+    room_id BIGINT UNSIGNED NOT NULL,
+    booking_id BIGINT UNSIGNED NOT NULL,
     complaint_type VARCHAR(30) NOT NULL,
     description TEXT NOT NULL,
 

@@ -11,5 +11,5 @@ class Payment extends Model
 
     protected $table = 'payments';
 
-    protected $fillable = ['proof'];
+    protected $fillable = ['room_id', 'booking_id', 'proof'];
 }

@@ -104,17 +104,33 @@ times(5, function () {
 times(1, function () {
     $rooms   = \App\Models\Room::instance()->raw("SELECT id FROM rooms")->fetchAll();
     $roomIds = array_column($rooms, 'id');
+    $users   = \App\Models\User::instance()->raw("SELECT id FROM users WHERE role = 'customer'")->fetchAll();
+    $userIds = array_column($users, 'id');
 
-    times(count($roomIds), function ($index) use ($roomIds) {
+    times(count($roomIds), function ($index) use ($roomIds, $userIds) {
 
-        $startDate = strtotime(date('Y-m-d'));
-        $endDate   = date("Y-m-d", strtotime("+" . rand(1, 6) . " day", $startDate));
+        times(rand(3, 5), function () use ($index, $roomIds, $userIds) {
 
-        \App\Models\Booking::instance()->create([
-            "room_id"    => $roomIds[$index],
-            "start_date" => date('Y-m-d', $startDate),
-            "end_date"   => $endDate,
-            "status"     => rand(0, 1),
-        ]);
+            $startDate = strtotime(date('Y-m-d'));
+            $endDate   = date("Y-m-d", strtotime("+" . rand(1, 6) . " day", $startDate));
+
+            $booking = \App\Models\Booking::instance()->create([
+                "room_id"    => $roomIds[$index],
+                "user_id"    => $userIds[array_rand($userIds)],
+                "start_date" => date('Y-m-d', $startDate),
+                "end_date"   => $endDate,
+                "status"     => rand(0, 1),
+            ]);
+
+            $name = str_random(40) . ".jpg";
+
+            copy('./public/assets/img/bukti-pembayaran.png', './public/uploads/images/payments/' . $name);
+
+            \App\Models\Payment::instance()->create([
+                "room_id"    => $roomIds[$index],
+                "booking_id" => $booking->id,
+                "proof"      => $name,
+            ]);
+        });
     });
 });

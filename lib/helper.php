@@ -53,3 +53,17 @@ if (!function_exists('route')) {
         return '';
     }
 }
+
+if (!function_exists('dump')) {
+    function dump() {
+        echo "<pre>";
+        var_dump(func_get_args());
+        echo "</pre>";
+    }
+}
+
+if (!function_exists('asset')) {
+    function asset($path) {
+        return DOMAIN . DIRECTORY_SEPARATOR . trim($path, DIRECTORY_SEPARATOR);
+    }
+}
