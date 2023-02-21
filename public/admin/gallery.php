@@ -9,7 +9,7 @@
     <?php require_once "../layout/admin/style.php"; ?>
 
     <?php
-        $images = \App\Models\RoomImage::instance()->raw("SELECT * FROM room_images WHERE room_id = ?", [$_GET['room_id']])->fetchAll(PDO::FETCH_OBJ);
+        $images = \App\Models\RoomImage::instance()->raw("SELECT * FROM room_images WHERE room_id = ? AND is_main = 0", [$_GET['room_id']])->fetchAll(PDO::FETCH_OBJ);
     ?>
 </head>
 

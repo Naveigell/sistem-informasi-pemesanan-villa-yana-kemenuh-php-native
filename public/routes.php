@@ -3,7 +3,14 @@
 return [
     "home.index" => "index.php",
     "auth.login.index" => "login.php",
-    "auth.login.store" => "actions/customer/auth_login.php",
+    "auth.login.store" => "actions/auth/auth_login.php",
+
+    "customers.profile.index" => "customer/biodata.php",
+    "customers.profile.store" => "actions/customer/biodata_update.php",
+    "customers.profile.password.store" => "actions/customer/password_update.php",
+
+    "rooms.detail" => "customer/room_detail.php",
+    "rooms.bookings.store" => "actions/customer/room_store.php",
 
     "admin.dashboard.index" => "admin/dashboard.php",
     "admin.rooms.index" => "admin/room.php",

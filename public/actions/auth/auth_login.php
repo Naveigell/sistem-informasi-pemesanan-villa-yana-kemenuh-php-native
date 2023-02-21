@@ -21,6 +21,8 @@ if (!$user) {
 
     if ($user['role'] == User::ROLE_ADMIN) {
         redirect($routes['admin.dashboard.index']);
+    } elseif ($user['role'] == User::ROLE_CUSTOMER) {
+        redirect($routes['home.index']);
     }
 }
 ?>

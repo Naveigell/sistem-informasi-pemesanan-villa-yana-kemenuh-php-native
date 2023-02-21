@@ -36,7 +36,7 @@ $rooms = \App\Models\Room::instance()->with('image')->getAll();
                                     </div>
                                     <div class="article-details">
                                         <div class="article-title">
-                                            <h2><a href="#" style="overflow-wrap: break-word;"><?= $room->name; ?></a></h2>
+                                            <h2><a href="<?= route('rooms.detail') . '?' . http_build_query(['room_id' => $room->id]); ?>" style="overflow-wrap: break-word;"><?= $room->name; ?></a></h2>
                                         </div>
                                         <p><?= $room->description; ?></p>
                                     </div>

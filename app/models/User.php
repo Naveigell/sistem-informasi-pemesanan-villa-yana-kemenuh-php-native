@@ -11,7 +11,7 @@ class User extends Model
 
     protected $table = "users";
 
-    protected $fillable = ['email', 'password', 'role'];
+    protected $fillable = ['name', 'email', 'password', 'role'];
 
     const ROLE_ADMIN    = "admin";
     const ROLE_CUSTOMER = "customer";
