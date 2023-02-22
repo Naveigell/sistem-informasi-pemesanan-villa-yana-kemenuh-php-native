@@ -38,4 +38,8 @@ return [
 
     "admin.orders.index" => "admin/order.php",
     "admin.orders.update" => "actions/admin/order_update.php",
+
+    "admin.complaints.index" => "admin/complaint.php",
+    "admin.complaints.show" => "admin/complaint_form.php",
+    "admin.complaints.update" => "actions/admin/complaint_update.php"
 ];

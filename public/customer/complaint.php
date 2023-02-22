@@ -11,6 +11,9 @@ require_once '../../server.php';
     <title>Layout › Top Navigation — Stisla</title>
 
     <?php require_once '../layout/customer/style.php'; ?>
+    <?php
+        $complaints = \App\Models\Complaint::instance()->raw("SELECT * FROM complaints WHERE booking_id = ?", [$_GET['booking_id']])->fetchAll();
+    ?>
 </head>
 
 <body class="layout-3">
@@ -31,6 +34,19 @@ require_once '../../server.php';
                                     <h4>Komplain</h4>
                                 </div>
                                 <div class="card-body">
+                                    <?php foreach ($complaints as $index => $complaint): ?>
+                                        <div class="alert alert-light">
+                                            <div style="float: left"><?= $index + 1; ?>. <?= $complaint['description']; ?></div>
+                                            <div style="float: right;">
+                                                <?php if ($complaint['status'] == \App\Models\Complaint::COMPLAINT_STATUS_NOT_FINISHED): ?>
+                                                    <span class="badge badge-dark">Sedang di proses</span>
+                                                <?php else: ?>
+                                                    <span class="badge badge-success">Selesai</span>
+                                                <?php endif; ?>
+                                            </div>
+                                            <div style="clear: both;"></div>
+                                        </div>
+                                    <?php endforeach; ?>
                                     <form action="<?= route('customers.orders.complaints.store') . '?' . http_build_query($_GET); ?>" class="" method="post">
                                         <div class="row">
                                             <div class="form-group col-12">

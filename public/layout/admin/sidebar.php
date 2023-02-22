@@ -9,9 +9,11 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Additional</li>
-            <li><a class="nav-link" href="<?= route('admin.rooms.index'); ?>"><i class="far fa-square"></i> <span>Kamar</span></a></li>
+            <li><a class="nav-link" href="<?= route('admin.rooms.index'); ?>"><i class="fa fa-building"></i> <span>Kamar</span></a></li>
             <li class="menu-header">Pemesanan</li>
-            <li><a class="nav-link" href="<?= route('admin.orders.index'); ?>"><i class="far fa-square"></i> <span>Pemesanan</span></a></li>
+            <li><a class="nav-link" href="<?= route('admin.orders.index'); ?>"><i class="fa fa-shopping-cart"></i> <span>Pemesanan</span></a></li>
+            <li class="menu-header">Komplain</li>
+            <li><a class="nav-link" href="<?= route('admin.complaints.index'); ?>"><i class="fa fa-envelope-open"></i> <span>Komplain</span></a></li>
         </ul>
     </aside>
 </div>

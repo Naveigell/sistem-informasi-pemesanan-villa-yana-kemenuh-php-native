@@ -134,3 +134,22 @@ times(1, function () {
         });
     });
 });
+
+times(1, function () {
+    $bookings = \App\Models\Booking::instance()->getAll();
+    $rooms    = \App\Models\Room::instance()->getAll();
+    $users    = \App\Models\User::instance()->raw("SELECT * FROM users WHERE role = ?", [\App\Models\User::ROLE_CUSTOMER])->fetchAll(PDO::FETCH_OBJ);
+
+    times(30, function () use ($bookings, $rooms, $users) {
+        $types = [\App\Models\Complaint::COMPLAINT_TYPE_CUSTOMER, \App\Models\Complaint::COMPLAINT_TYPE_ADMIN];
+        $descriptions = ['Keran air bocor', 'Wastafel bocor', 'Genteng bocor', 'Kemalingan sepatu'];
+
+        \App\Models\Complaint::instance()->create([
+            "user_id"        => $users[array_rand($users)]->id,
+            "room_id"        => $rooms[array_rand($rooms)]->id,
+            "booking_id"     => $bookings[array_rand($bookings)]->id,
+            "complaint_type" => $types[array_rand($types)],
+            "description"    => $descriptions[array_rand($descriptions)],
+        ]);
+    });
+});
