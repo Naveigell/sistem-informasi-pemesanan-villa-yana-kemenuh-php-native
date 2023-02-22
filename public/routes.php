@@ -14,6 +14,8 @@ return [
     "customers.orders.complaints.index" => "customer/complaint.php",
     "customers.orders.complaints.store" => "actions/customer/complaint_store.php",
 
+    "customer.orders.update.cancel" => "actions/customer/order_update_cancel.php",
+
     "rooms.detail" => "customer/room_detail.php",
     "rooms.bookings.store" => "actions/customer/room_store.php",
 

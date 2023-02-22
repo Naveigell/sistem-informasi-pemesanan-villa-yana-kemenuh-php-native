@@ -93,7 +93,11 @@ require_once '../../server.php';
                                                     </td>
                                                     <td>
                                                         <a href="" class="btn btn-warning"><i class="fa fa-eye"></i></a>
-                                                        <a href="<?= route('customers.orders.complaints.index') . '?' . http_build_query(['booking_id' => $booking['id'], 'room_id' => $booking['room_id']]); ?>" class="btn btn-danger"><i class="fa fa-envelope"></i></a>
+                                                        <a href="<?= route('customers.orders.complaints.index') . '?' . http_build_query(['booking_id' => $booking['id'], 'room_id' => $booking['room_id']]); ?>" class="btn btn-primary"><i class="fa fa-envelope"></i></a>
+
+                                                        <?php if ($booking['status'] == \App\Models\Booking::STATUS_NOT_ACC): ?>
+                                                            <button data-url="<?= route('customer.orders.update.cancel') . '?' . http_build_query(['booking_id' => $booking['id']]); ?>" class="btn btn-danger btn-cancel-order" data-toggle="modal" data-target="#order-cancel-modal"><i class="fa fa-times"></i></button>
+                                                        <?php endif; ?>
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>
@@ -107,13 +111,37 @@ require_once '../../server.php';
             </section>
         </div>
 
+        <div class="modal fade" tabindex="-1" role="dialog" id="order-cancel-modal" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form class="modal-content" method="post" action="">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Batalkan</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="modal-text">Batalkan Pemesanan?</p>
+                    </div>
+                    <div class="modal-footer bg-whitesmoke br">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Iya</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <?php require_once '../layout/customer/footer.php'; ?>
 
     </div>
 </div>
 
 <?php require_once '../layout/customer/script.php'; ?>
-
+<script>
+    $('.btn-cancel-order').on('click', function () {
+        $('#order-cancel-modal form').attr('action', $(this).data('url'));
+    })
+</script>
 </body>
 </html>
 
