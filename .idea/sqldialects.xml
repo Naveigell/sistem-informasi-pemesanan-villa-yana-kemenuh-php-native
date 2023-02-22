@@ -12,6 +12,7 @@
     <file url="file://$PROJECT_DIR$/public/actions/admin/facility_destroy.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/admin/facility_update.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/admin/gallery_destroy.php" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/public/actions/admin/order_update.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/admin/room_destroy.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/admin/room_update.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/auth/auth_login.php" dialect="MySQL" />
@@ -21,6 +22,7 @@
     <file url="file://$PROJECT_DIR$/public/admin/facility_form.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/admin/gallery.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/admin/gallery_form.php" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/public/admin/order.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/customer/biodata.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/customer/order.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/customer/room_detail.php" dialect="MySQL" />

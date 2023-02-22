@@ -2,6 +2,7 @@
 
 return [
     "home.index" => "index.php",
+    "auth.logout" => "actions/auth/auth_logout.php",
     "auth.login.index" => "login.php",
     "auth.login.store" => "actions/auth/auth_login.php",
 
@@ -34,4 +35,7 @@ return [
     "admin.rooms.galleries.store" => "actions/admin/gallery_store.php",
     "admin.rooms.galleries.update" => "actions/admin/gallery_update.php",
     "admin.rooms.galleries.destroy" => "actions/admin/gallery_destroy.php",
+
+    "admin.orders.index" => "admin/order.php",
+    "admin.orders.update" => "actions/admin/order_update.php",
 ];

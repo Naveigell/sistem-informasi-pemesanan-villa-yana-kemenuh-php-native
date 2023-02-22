@@ -10,6 +10,8 @@
         <ul class="sidebar-menu">
             <li class="menu-header">Additional</li>
             <li><a class="nav-link" href="<?= route('admin.rooms.index'); ?>"><i class="far fa-square"></i> <span>Kamar</span></a></li>
+            <li class="menu-header">Pemesanan</li>
+            <li><a class="nav-link" href="<?= route('admin.orders.index'); ?>"><i class="far fa-square"></i> <span>Pemesanan</span></a></li>
         </ul>
     </aside>
 </div>
