@@ -18,6 +18,7 @@ if (move_uploaded_file($proof['tmp_name'], "../../uploads/images/payments/" . $f
         "start_date" => $startDate,
         "end_date"   => $endDate,
         "room_id"    => $roomId,
+        "user_id"    => \Lib\Session\Session::get('user')['id'],
     ]);
 
     \App\Models\Payment::instance()->create([

@@ -14,6 +14,8 @@
             <li><a class="nav-link" href="<?= route('admin.orders.index'); ?>"><i class="fa fa-shopping-cart"></i> <span>Pemesanan</span></a></li>
             <li class="menu-header">Komplain</li>
             <li><a class="nav-link" href="<?= route('admin.complaints.index'); ?>"><i class="fa fa-envelope-open"></i> <span>Komplain</span></a></li>
+            <li class="menu-header">Laporan</li>
+            <li><a class="nav-link" href="<?= route('admin.reports.incomes.index'); ?>"><i class="fa fa-print"></i> <span>Laporan</span></a></li>
         </ul>
     </aside>
 </div>

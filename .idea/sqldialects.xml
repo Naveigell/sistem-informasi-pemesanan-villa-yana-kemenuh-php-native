@@ -27,6 +27,8 @@
     <file url="file://$PROJECT_DIR$/public/admin/gallery.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/admin/gallery_form.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/admin/order.php" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/public/admin/reports/income.php" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/public/admin/reports/income_print.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/customer/biodata.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/customer/complaint.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/customer/order.php" dialect="MySQL" />
