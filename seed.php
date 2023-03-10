@@ -150,6 +150,7 @@ times(1, function () {
             "booking_id"     => $bookings[array_rand($bookings)]->id,
             "complaint_type" => $types[array_rand($types)],
             "description"    => $descriptions[array_rand($descriptions)],
+            "status"         => rand(0, 1)
         ]);
     });
 });
