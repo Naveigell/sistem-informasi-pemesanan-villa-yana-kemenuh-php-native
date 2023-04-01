@@ -128,6 +128,10 @@ require_once '../../server.php';
                                                         <input type="text" name="address" class="form-control">
                                                     </div>
                                                     <div class="form-group">
+                                                        <label for="">Email</label>
+                                                        <input type="email" name="email" class="form-control" value="<?= \Lib\Session\Session::get('user')['email']; ?>">
+                                                    </div>
+                                                    <div class="form-group">
                                                         <label for="">No Telp</label>
                                                         <input type="text" name="phone" class="form-control">
                                                     </div>

@@ -102,14 +102,15 @@ times(5, function () {
 });
 
 times(1, function () {
-    $rooms   = \App\Models\Room::instance()->raw("SELECT id FROM rooms")->fetchAll();
-    $roomIds = array_column($rooms, 'id');
-    $users   = \App\Models\User::instance()->raw("SELECT id FROM users WHERE role = 'customer'")->fetchAll();
-    $userIds = array_column($users, 'id');
+    $rooms    = \App\Models\Room::instance()->raw("SELECT id FROM rooms")->fetchAll();
+    $roomIds  = array_column($rooms, 'id');
+    $users    = \App\Models\User::instance()->raw("SELECT id, name, email FROM users WHERE role = 'customer'")->fetchAll();
+    $biodatas = \App\Models\Biodata::instance()->raw("SELECT * FROM biodatas")->fetchAll();
+    $userIds  = array_column($users, 'id');
 
-    times(count($roomIds), function ($index) use ($roomIds, $userIds) {
+    times(count($roomIds), function ($index) use ($roomIds, $userIds, $users, $biodatas) {
 
-        times(rand(3, 5), function () use ($index, $roomIds, $userIds) {
+        times(rand(3, 5), function () use ($index, $roomIds, $userIds, $users, $biodatas) {
 
             $startDate = strtotime(date('Y-m-d'));
             $endDate   = date("Y-m-d", strtotime("+" . rand(1, 6) . " day", $startDate));
@@ -117,6 +118,10 @@ times(1, function () {
             $booking = \App\Models\Booking::instance()->create([
                 "room_id"    => $roomIds[$index],
                 "user_id"    => $userIds[array_rand($userIds)],
+                "name"       => $users[array_rand($users)]['name'],
+                "email"      => $users[array_rand($users)]['email'],
+                "phone"      => $biodatas[array_rand($biodatas)]['phone'],
+                "address"    => $biodatas[array_rand($biodatas)]['address'],
                 "start_date" => date('Y-m-d', $startDate),
                 "end_date"   => $endDate,
                 "status"     => rand(0, 1),

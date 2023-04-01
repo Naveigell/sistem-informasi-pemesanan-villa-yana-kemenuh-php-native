@@ -11,6 +11,7 @@ return [
     "customers.profile.password.store" => "actions/customer/password_update.php",
 
     "customers.orders.index" => "customer/order.php",
+    "customers.orders.show" => "customer/order_detail.php",
     "customers.orders.complaints.index" => "customer/complaint.php",
     "customers.orders.complaints.store" => "actions/customer/complaint_store.php",
 
@@ -41,6 +42,7 @@ return [
     "admin.rooms.galleries.destroy" => "actions/admin/gallery_destroy.php",
 
     "admin.orders.index" => "admin/order.php",
+    "admin.orders.show" => "admin/order_detail.php",
     "admin.orders.update" => "actions/admin/order_update.php",
 
     "admin.complaints.index" => "admin/complaint.php",

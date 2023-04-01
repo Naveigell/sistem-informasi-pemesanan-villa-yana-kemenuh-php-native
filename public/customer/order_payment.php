@@ -63,6 +63,14 @@ require_once '../../server.php';
                                         <h6>Upload Bukti Pembayaran</h6>
                                         <div class="row mt-4">
                                             <form action="<?= route('rooms.bookings.payment.store'); ?>" class="col-lg-8 col-md-12" method="post" enctype="multipart/form-data">
+                                                <div class="alert alert-light">
+                                                    Silakan melakukan pembayaran ke nomor rekening berikut :
+                                                    <ul>
+                                                        <?php foreach (PAYMENT_CARD_ACCOUNT as $account => $array): ?>
+                                                            <li><?= $account; ?> (<?= strtoupper($array['bank_type']); ?>) - <?= $array['account_name']; ?></li>
+                                                        <?php endforeach; ?>
+                                                    </ul>
+                                                </div>
                                                 <h6 class="text text-success">Form Pembayaran</h6>
                                                 <div class="form-group">
                                                     <label for="">Bukti Pembayaran</label>

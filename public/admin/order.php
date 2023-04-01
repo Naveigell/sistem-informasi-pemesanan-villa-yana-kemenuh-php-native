@@ -137,7 +137,7 @@
                                                                     <?php endif; ?>
                                                                 </td>
                                                                 <td>
-                                                                    <a href="" class="btn btn-warning"><i class="fa fa-eye"></i></a>
+                                                                    <a href="<?= route('admin.orders.show') . '?' . http_build_query(['booking_id' => $booking['id'], 'room_id' => $room['id']]); ?>" class="btn btn-warning"><i class="fa fa-eye"></i></a>
                                                                     <?php if ($booking['status'] == \App\Models\Booking::STATUS_NOT_ACC): ?>
                                                                         <button data-title="Terima" data-url="<?= route('admin.orders.update') . '?' . http_build_query(['booking_id' => $booking['id'], 'status' => 1, 'from' => $_GET['from'], 'to' => $_GET['to']]); ?>" data-toggle="modal" data-target="#order-modal" class="btn btn-success btn-accepted"><i class="fa fa-check"></i></button>
                                                                         <button data-title="Tolak" data-url="<?= route('admin.orders.update') . '?' . http_build_query(['booking_id' => $booking['id'], 'status' => 3, 'from' => $_GET['from'], 'to' => $_GET['to']]); ?>" data-toggle="modal" data-target="#order-modal" class="btn btn-danger btn-rejected"><i class="fa fa-times"></i></button>

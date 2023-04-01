@@ -92,7 +92,7 @@ require_once '../../server.php';
                                                         <?php endif; ?>
                                                     </td>
                                                     <td>
-                                                        <a href="" class="btn btn-warning"><i class="fa fa-eye"></i></a>
+                                                        <a href="<?= route('customers.orders.show') . '?' . http_build_query(['booking_id' => $booking['id'], 'room_id' => $booking['room_id']]); ?>" class="btn btn-warning"><i class="fa fa-eye"></i></a>
                                                         <a href="<?= route('customers.orders.complaints.index') . '?' . http_build_query(['booking_id' => $booking['id'], 'room_id' => $booking['room_id']]); ?>" class="btn btn-primary"><i class="fa fa-envelope"></i></a>
 
                                                         <?php if ($booking['status'] == \App\Models\Booking::STATUS_NOT_ACC): ?>
