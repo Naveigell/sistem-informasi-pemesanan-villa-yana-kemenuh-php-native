@@ -17,7 +17,9 @@ return [
     "customer.orders.update.cancel" => "actions/customer/order_update_cancel.php",
 
     "rooms.detail" => "customer/room_detail.php",
+    "rooms.payment.detail" => "customer/order_payment.php",
     "rooms.bookings.store" => "actions/customer/room_store.php",
+    "rooms.bookings.payment.store" => "actions/customer/payment_store.php",
 
     "admin.dashboard.index" => "admin/dashboard.php",
     "admin.rooms.index" => "admin/room.php",

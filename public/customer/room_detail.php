@@ -131,10 +131,6 @@ require_once '../../server.php';
                                                         <label for="">No Telp</label>
                                                         <input type="text" name="phone" class="form-control">
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="">Bukti Pembayaran</label>
-                                                        <input type="file" name="proof" class="form-control">
-                                                    </div>
                                                     <div class="form-group mb-0">
                                                         <button type="submit" class="btn btn-primary">Simpan</button>
                                                     </div>
