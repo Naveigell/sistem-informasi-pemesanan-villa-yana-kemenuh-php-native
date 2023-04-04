@@ -41,6 +41,11 @@ return [
     "admin.rooms.galleries.update" => "actions/admin/gallery_update.php",
     "admin.rooms.galleries.destroy" => "actions/admin/gallery_destroy.php",
 
+    "admin.testimonials.index" => "admin/testimonial.php",
+    "admin.testimonials.form" => "admin/testimonial_form.php",
+    "admin.testimonials.store" => "actions/admin/testimonial_store.php",
+    "admin.testimonials.destroy" => "actions/admin/testimonial_destroy.php",
+
     "admin.orders.index" => "admin/order.php",
     "admin.orders.show" => "admin/order_detail.php",
     "admin.orders.update" => "actions/admin/order_update.php",

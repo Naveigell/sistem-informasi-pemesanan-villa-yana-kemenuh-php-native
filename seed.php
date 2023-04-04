@@ -159,3 +159,11 @@ times(1, function () {
         ]);
     });
 });
+
+times(5, function () {
+    \App\Models\Testimonial::instance()->create([
+        "name"        => str_random(40),
+        "description" => "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, aut beatae earum, eius eum ex expedita fugiat maiores, minima modi quaerat quod quos rerum similique ullam. Architecto maxime nemo porro!",
+        "star"        => rand(1, 5),
+    ]);
+});

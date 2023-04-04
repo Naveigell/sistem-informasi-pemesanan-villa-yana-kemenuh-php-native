@@ -9,6 +9,7 @@
     <file url="file://$PROJECT_DIR$/migration/2023_01_31_19_54_00_create_facilities_table.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/migration/2023_01_31_22_04_00_create_room_images_table.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/migration/2023_02_11_12_58_00_create_payments_table.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/migration/2023_04_04_11_50_00_create_testimonials_table.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/admin/complaint_update.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/admin/facility_destroy.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/admin/facility_update.php" dialect="MySQL" />
@@ -16,6 +17,7 @@
     <file url="file://$PROJECT_DIR$/public/actions/admin/order_update.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/admin/room_destroy.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/admin/room_update.php" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/public/actions/admin/testimonial_destroy.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/auth/auth_login.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/customer/biodata_update.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/customer/order_update_cancel.php" dialect="MySQL" />
