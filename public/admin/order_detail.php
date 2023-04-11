@@ -15,6 +15,11 @@
         $facilities = \App\Models\Facility::instance()->raw("SELECT * FROM facilities WHERE room_id = ?", [$_GET['room_id']])->fetchAll(PDO::FETCH_OBJ);
         $user       = \App\Models\User::instance()->raw("SELECT * FROM users WHERE id = ?", [$booking->user_id])->fetch(PDO::FETCH_OBJ);
         $biodata    = \App\Models\Biodata::instance()->raw("SELECT * FROM biodatas WHERE user_id = ?", [$user->id])->fetch(PDO::FETCH_OBJ);
+        $payment    = null;
+
+        if ($booking) {
+            $payment = \App\Models\Payment::instance()->raw("SELECT * FROM payments WHERE booking_id = ?", $booking->id)->fetch(PDO::FETCH_OBJ);
+        }
     ?>
 </head>
 
@@ -76,6 +81,16 @@
                                                 <div class="form-group">
                                                     <label for="">No Telp</label>
                                                     <input disabled type="text" name="phone" class="form-control" value="<?= $booking->phone; ?>">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="">Bukti Pembayaran</label>
+                                                    <?php if ($payment): ?>
+                                                        <div style="border: 1px dashed #cccccc; border-radius: 5px;">
+                                                            <img src="<?= asset('uploads/images/payments/' . $payment->proof); ?>" alt="" width="100%" height="100%">
+                                                        </div>
+                                                    <?php else: ?>
+                                                        <span class="badge badge-warning d-block">Belum dibayar</span>
+                                                    <?php endif; ?>
                                                 </div>
                                             </div>
                                         </div>

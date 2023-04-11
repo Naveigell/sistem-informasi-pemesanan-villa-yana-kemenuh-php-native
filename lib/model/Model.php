@@ -160,8 +160,12 @@ class Model implements CreateReadUpdateDelete
         return $model;
     }
 
-    public function raw(string $sql, array $bindings = [])
+    public function raw(string $sql, $bindings = [])
     {
+        if (!is_array($bindings)) {
+            $bindings = [$bindings];
+        }
+
         $this->rawSql = $sql;
         $this->rawBindings = $bindings;
 

@@ -18,16 +18,18 @@
         $users      = [];
 
         if (count(array_intersect(['from', 'to'], array_keys($_GET))) == 2) {
-            $bookings = \App\Models\Booking::instance()->raw("SELECT * FROM bookings WHERE DATE(start_date) >= ? AND DATE(end_date) <= ?", [$_GET['from'], $_GET['to']])->fetchAll();
+            $bookings = \App\Models\Booking::instance()->raw("SELECT * FROM bookings WHERE DATE(start_date) >= ? AND DATE(end_date) <= ? ORDER BY id DESC", [$_GET['from'], $_GET['to']])->fetchAll();
+        } else {
+            $bookings = \App\Models\Booking::instance()->raw("SELECT * FROM bookings ORDER BY id DESC")->fetchAll();
+        }
 
-            if (count($bookings) > 0) {
-                $rooms      = \App\Models\Room::instance()->raw("SELECT * FROM rooms WHERE id IN (" . join(', ', array_column($bookings, 'room_id')) . ")")->fetchAll();
-                $payments   = \App\Models\Payment::instance()->raw("SELECT * FROM payments WHERE booking_id IN (" . join(', ', array_column($bookings, 'id')) . ")")->fetchAll();
-                $users      = \App\Models\User::instance()->raw("SELECT * FROM users WHERE id IN (" . join(', ', array_column($bookings, 'user_id')) . ")")->fetchAll();
+        if (count($bookings) > 0) {
+            $rooms      = \App\Models\Room::instance()->raw("SELECT * FROM rooms WHERE id IN (" . join(', ', array_column($bookings, 'room_id')) . ")")->fetchAll();
+            $payments   = \App\Models\Payment::instance()->raw("SELECT * FROM payments WHERE booking_id IN (" . join(', ', array_column($bookings, 'id')) . ")")->fetchAll();
+            $users      = \App\Models\User::instance()->raw("SELECT * FROM users WHERE id IN (" . join(', ', array_column($bookings, 'user_id')) . ")")->fetchAll();
 
-                if (count($rooms) > 0) {
-                    $roomImages = \App\Models\RoomImage::instance()->raw("SELECT * FROM room_images WHERE room_id IN (" . join(', ', array_column($rooms, 'id')) . ")")->fetchAll();
-                }
+            if (count($rooms) > 0) {
+                $roomImages = \App\Models\RoomImage::instance()->raw("SELECT * FROM room_images WHERE room_id IN (" . join(', ', array_column($rooms, 'id')) . ")")->fetchAll();
             }
         }
 
@@ -135,12 +137,30 @@
                                                                     <?php else: ?>
                                                                         <span class="badge badge-danger">Dibatalkan</span>
                                                                     <?php endif; ?>
+
+                                                                    <?php if (!$payment): ?>
+                                                                        <span class="badge badge-dark">Belum dibayar</span>
+                                                                    <?php endif; ?>
                                                                 </td>
                                                                 <td>
                                                                     <a href="<?= route('admin.orders.show') . '?' . http_build_query(['booking_id' => $booking['id'], 'room_id' => $room['id']]); ?>" class="btn btn-warning"><i class="fa fa-eye"></i></a>
                                                                     <?php if ($booking['status'] == \App\Models\Booking::STATUS_NOT_ACC): ?>
-                                                                        <button data-title="Terima" data-url="<?= route('admin.orders.update') . '?' . http_build_query(['booking_id' => $booking['id'], 'status' => 1, 'from' => $_GET['from'], 'to' => $_GET['to']]); ?>" data-toggle="modal" data-target="#order-modal" class="btn btn-success btn-accepted"><i class="fa fa-check"></i></button>
-                                                                        <button data-title="Tolak" data-url="<?= route('admin.orders.update') . '?' . http_build_query(['booking_id' => $booking['id'], 'status' => 3, 'from' => $_GET['from'], 'to' => $_GET['to']]); ?>" data-toggle="modal" data-target="#order-modal" class="btn btn-danger btn-rejected"><i class="fa fa-times"></i></button>
+
+                                                                        <?php
+                                                                            $query = [
+                                                                                'booking_id' => $booking['id'],
+                                                                            ];
+
+                                                                            if (count(array_intersect(['from', 'to'], array_keys($_GET))) == 2) {
+                                                                                $query = array_merge($query, [
+                                                                                    'from' => $_GET['from'],
+                                                                                    'to' => $_GET['to']
+                                                                                ]);
+                                                                            }
+                                                                        ?>
+
+                                                                        <button data-title="Terima" data-url="<?= route('admin.orders.update') . '?' . http_build_query(array_merge($query, ['status' => 1])); ?>" data-toggle="modal" data-target="#order-modal" class="btn btn-success btn-accepted"><i class="fa fa-check"></i></button>
+                                                                        <button data-title="Tolak" data-url="<?= route('admin.orders.update') . '?' . http_build_query(array_merge($query, ['status' => 3])); ?>" data-toggle="modal" data-target="#order-modal" class="btn btn-danger btn-rejected"><i class="fa fa-times"></i></button>
                                                                     <?php endif; ?>
                                                                 </td>
                                                             </tr>

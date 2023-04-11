@@ -15,6 +15,26 @@ if (move_uploaded_file($proof['tmp_name'], "../../uploads/images/payments/" . $f
         "booking_id" => $bookingId,
         "proof"      => $filename,
     ]);
-
-    redirect($routes['home.index']);
 }
+
+?>
+<!doctype html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-minimal/minimal.css" rel="stylesheet">
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+<script>
+    Swal.fire(
+        'Pemesanan berhasil',
+        'Kamu akan diarahkan ke halaman pemesanan',
+        'success'
+    ).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        window.location.href = '<?= route('home.index'); ?>'
+    })
+</script>
+</body>
+</html>
+

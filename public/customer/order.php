@@ -12,7 +12,7 @@ require_once '../../server.php';
 
     <?php require_once '../layout/customer/style.php'; ?>
     <?php
-        $bookings = \App\Models\Booking::instance()->raw('SELECT * FROM bookings WHERE user_id = ?', [\Lib\Session\Session::get('user')['id']])->fetchAll();
+        $bookings = \App\Models\Booking::instance()->raw('SELECT * FROM bookings WHERE user_id = ? ORDER BY id DESC', [\Lib\Session\Session::get('user')['id']])->fetchAll();
 
         $rooms = $payments = $roomImages = [];
 
@@ -90,6 +90,10 @@ require_once '../../server.php';
                                                         <?php else: ?>
                                                             <span class="badge badge-danger">Dibatalkan</span>
                                                         <?php endif; ?>
+
+                                                        <?php if (!$payment): ?>
+                                                            <span class="badge badge-dark">Belum dibayar</span>
+                                                        <?php endif; ?>
                                                     </td>
                                                     <td>
                                                         <a href="<?= route('customers.orders.show') . '?' . http_build_query(['booking_id' => $booking['id'], 'room_id' => $booking['room_id']]); ?>" class="btn btn-warning"><i class="fa fa-eye"></i></a>
@@ -97,6 +101,10 @@ require_once '../../server.php';
 
                                                         <?php if ($booking['status'] == \App\Models\Booking::STATUS_NOT_ACC): ?>
                                                             <button data-url="<?= route('customer.orders.update.cancel') . '?' . http_build_query(['booking_id' => $booking['id']]); ?>" class="btn btn-danger btn-cancel-order" data-toggle="modal" data-target="#order-cancel-modal"><i class="fa fa-times"></i></button>
+                                                        <?php endif; ?>
+
+                                                        <?php if (!$payment): ?>
+                                                            <a href="<?= route('rooms.payment.detail') . '?' . http_build_query(['booking_id' => $booking['id'], 'room_id' => $booking['room_id']]); ?>" class="btn btn-dark"><i class="fa fa-upload"></i></a>
                                                         <?php endif; ?>
                                                     </td>
                                                 </tr>
