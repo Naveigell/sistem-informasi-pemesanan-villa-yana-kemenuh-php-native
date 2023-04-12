@@ -1,2 +1,7 @@
 /.idea
 .idea
+/.idea/sqldialects.xml
+
+.env
+test.php
+/vendor

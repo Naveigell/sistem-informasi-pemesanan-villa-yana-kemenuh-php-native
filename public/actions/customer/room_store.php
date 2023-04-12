@@ -21,4 +21,14 @@ $booking = \App\Models\Booking::instance()->create([
     "address"    => $address,
 ]);
 
+try {
+    $mail = new \Lib\Email\Mail();
+    $mail->subject("Villa Yana Kemenuh - Pemesanan berhasil!");
+    $mail->addAddress($email, $name);
+    $mail->view('../../layout/email/order_success.php', compact('booking'));
+    $mail->send();
+} catch (Exception $e) {
+    die($e->getMessage());
+}
+
 redirect($routes['rooms.payment.detail'] . '?' . http_build_query(["room_id" => $roomId, "booking_id" => $booking->id]));

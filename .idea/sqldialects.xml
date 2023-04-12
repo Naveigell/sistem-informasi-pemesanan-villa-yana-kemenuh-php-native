@@ -10,6 +10,7 @@
     <file url="file://$PROJECT_DIR$/migration/2023_01_31_22_04_00_create_room_images_table.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/migration/2023_02_11_12_58_00_create_payments_table.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/migration/2023_04_04_11_50_00_create_testimonials_table.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/migration/2023_04_12_11_28_00_create_password_resets_table.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/admin/complaint_update.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/admin/facility_destroy.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/admin/facility_update.php" dialect="MySQL" />
@@ -19,9 +20,12 @@
     <file url="file://$PROJECT_DIR$/public/actions/admin/room_update.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/admin/testimonial_destroy.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/auth/auth_login.php" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/public/actions/auth/forgot_password_store.php" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/public/actions/auth/reset_password_store.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/customer/biodata_update.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/customer/order_update_cancel.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/customer/password_update.php" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/public/actions/customer/payment_store.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/admin/complaint.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/admin/complaint_form.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/admin/facility.php" dialect="MySQL" />
@@ -39,5 +43,6 @@
     <file url="file://$PROJECT_DIR$/public/customer/order_payment.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/customer/room_detail.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/seed.php" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/test.php" dialect="MySQL" />
   </component>
 </project>

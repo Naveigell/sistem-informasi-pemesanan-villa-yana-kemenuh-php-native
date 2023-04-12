@@ -6,6 +6,12 @@ return [
     "auth.login.index" => "login.php",
     "auth.login.store" => "actions/auth/auth_login.php",
 
+    "auth.forgot_password.index" => "auth/forgot_password.php",
+    "auth.forgot_password.store" => "actions/auth/forgot_password_store.php",
+
+    "auth.reset_password.index" => "auth/reset_password.php",
+    "auth.reset_password.store" => "actions/auth/reset_password_store.php",
+
     "customers.profile.index" => "customer/biodata.php",
     "customers.profile.store" => "actions/customer/biodata_update.php",
     "customers.profile.password.store" => "actions/customer/password_update.php",
