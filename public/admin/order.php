@@ -85,7 +85,7 @@
                                                 <table class="table table-bordered table-md dataTable" id="table-1">
                                                     <thead>
                                                     <tr>
-                                                        <th>Nomor</th>
+                                                        <th>Kamar</th>
                                                         <th>Foto</th>
                                                         <th>Nama Pemesan</th>
                                                         <th>Tanggal Pemesanan</th>
@@ -121,7 +121,7 @@
                                                             ?>
 
                                                             <tr>
-                                                                <td><?= $room['room_number']; ?></td>
+                                                                <td><?= $room['name']; ?> - <?= $room['room_number']; ?></td>
                                                                 <td>
                                                                     <img src="<?= asset('uploads/images/rooms/' . $image['name']); ?>" alt="" style="width: 150px; height: 150px;">
                                                                 </td>

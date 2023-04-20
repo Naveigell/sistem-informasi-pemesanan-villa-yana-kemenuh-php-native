@@ -57,48 +57,60 @@ times(15, function () {
     ]);
 });
 
-times(5, function () {
-    $number = mt_rand(1, 100);
-    $number = str_pad($number, 3, "0", STR_PAD_LEFT);
+times(1, function () {
 
-    $number = str_random(3) . '_' . $number;
+    $roomNames = ['Anyelir', 'Anggrek', 'Cempaka', 'Jempiring', 'Sandat', 'Jepun'];
 
-    $room = \App\Models\Room::instance()->create([
-        "room_number" => $number,
-        "name"        => str_random(40),
-        "price"       => mt_rand(1, 7) * (10 ** mt_rand(5, 8)),
-        "description" => "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, aut beatae earum, eius eum ex expedita fugiat maiores, minima modi quaerat quod quos rerum similique ullam. Architecto maxime nemo porro!",
-    ]);
+    foreach ($roomNames as $roomName) {
+        $number = mt_rand(1, 100);
+        $number = str_pad($number, 3, "0", STR_PAD_LEFT);
 
-    times(mt_rand(2, 4), function ($index) use ($room) {
-        $name = str_random(40) . ".jpg";
+        $number = str_random(3) . '_' . $number;
 
-        if (!file_exists('./public/uploads/images/rooms')) {
-            mkdir('./public/uploads/images/rooms', 0777, true);
-        }
-
-        if (!file_exists('./public/uploads/images/payments')) {
-            mkdir('./public/uploads/images/payments', 0777, true);
-        }
-
-        copy('./public/assets/img/villa-room-template.jpeg', './public/uploads/images/rooms/' . $name);
-
-        \App\Models\RoomImage::instance()->create([
-            "room_id" => $room->id,
-            "name"    => $name,
-            "is_main" => $index == 0 ? 1 : 0,
+        $room = \App\Models\Room::instance()->create([
+            "room_number" => $number,
+            "name"        => $roomName,
+            "price"       => 700000,
+            "description" => "Kamar {$roomName} menyediakan berbagai fasilitas terbaik. Anda bisa langsung memesan kamar",
         ]);
-    });
 
-    times(mt_rand(2, 6), function () use ($room) {
+        times(1, function ($index) use ($room) {
 
-        $facilities = ["Tempat Tidur", "Kipas Angin", "AC", "Kompor"];
+            if (!file_exists('./public/uploads/images/rooms')) {
+                mkdir('./public/uploads/images/rooms', 0777, true);
+            }
 
-        \App\Models\Facility::instance()->create([
-            "room_id" => $room->id,
-            "name"    => $facilities[array_rand($facilities)],
-        ]);
-    });
+            if (!file_exists('./public/uploads/images/payments')) {
+                mkdir('./public/uploads/images/payments', 0777, true);
+            }
+
+            foreach (range(13, 6) as $index) {
+                $name = \Ramsey\Uuid\Uuid::uuid4() . ".jpeg";
+
+                copy("./public/assets/img/dummies/{$index}.jpeg", './public/uploads/images/rooms/' . $name);
+
+                \App\Models\RoomImage::instance()->create([
+                    "room_id" => $room->id,
+                    "name"    => $name,
+                    "is_main" => $index == 6 ? 1 : 0,
+                ]);
+            }
+        });
+
+        $facilities = [
+            "Lemari", "TV", "Wifi", "Sikat Gigi", "Sampo", "Conditioner", "Sabun",
+        ];
+
+        times(1, function () use ($room, $facilities) {
+
+            foreach ($facilities as $facility) {
+                \App\Models\Facility::instance()->create([
+                    "room_id" => $room->id,
+                    "name"    => $facility,
+                ]);
+            }
+        });
+    }
 });
 
 times(1, function () {

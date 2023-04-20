@@ -82,6 +82,12 @@
                                                     <label for="">No Telp</label>
                                                     <input disabled type="text" name="phone" class="form-control" value="<?= $booking->phone; ?>">
                                                 </div>
+                                                <?php if ($booking->note): ?>
+                                                    <div class="form-group">
+                                                        <label for="">Catatan</label>
+                                                        <textarea disabled name="note" id="" cols="30" rows="10" class="form-control" style="resize: none; min-height: 200px;"><?= $booking->note; ?></textarea>
+                                                    </div>
+                                                <?php endif; ?>
                                                 <div class="form-group">
                                                     <label for="">Bukti Pembayaran</label>
                                                     <?php if ($payment): ?>

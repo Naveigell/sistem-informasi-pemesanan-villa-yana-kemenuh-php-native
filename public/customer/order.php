@@ -80,7 +80,7 @@ require_once '../../server.php';
                                                 <tr>
                                                     <th scope="row"><?= $index + 1; ?></th>
                                                     <td><img src="<?= asset('/uploads/images/rooms/' . $image['name']); ?>" style="width: 150px; height: 150px;" alt="" class=""></td>
-                                                    <td><?= $room['room_number']; ?></td>
+                                                    <td><?= $room['name']; ?> - <?= $room['room_number']; ?></td>
                                                     <td><?= date('d F Y', strtotime($booking['start_date'])); ?> - <?= date('d F Y', strtotime($booking['end_date'])); ?></td>
                                                     <td>
                                                         <?php if ($booking['status'] == \App\Models\Booking::STATUS_NOT_ACC): ?>

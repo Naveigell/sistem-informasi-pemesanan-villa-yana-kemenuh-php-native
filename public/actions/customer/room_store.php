@@ -9,6 +9,7 @@ $email     = $_POST['email'];
 $roomId    = $_POST['room_id'];
 $startDate = $_POST['start_date'];
 $endDate   = $_POST['end_date'];
+$note      = $_POST['note'];
 
 $booking = \App\Models\Booking::instance()->create([
     "start_date" => $startDate,
@@ -19,6 +20,7 @@ $booking = \App\Models\Booking::instance()->create([
     "email"      => $email,
     "phone"      => $phone,
     "address"    => $address,
+    "note"       => $note,
 ]);
 
 try {

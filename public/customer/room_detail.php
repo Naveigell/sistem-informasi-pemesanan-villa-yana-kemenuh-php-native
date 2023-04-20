@@ -57,7 +57,7 @@ require_once '../../server.php';
                                         <div class="carousel-inner">
                                             <?php foreach ($images as $index => $image): ?>
                                                 <div class="carousel-item <?= $index == 0 ? 'active' : ''; ?>">
-                                                    <img class="d-block w-100" src="../uploads/images/rooms/<?= $image->name; ?>" style="height: 550px !important;">
+                                                    <img class="d-block w-100" src="../uploads/images/rooms/<?= $image->name; ?>" style="height: 650px !important; object-fit: cover;">
                                                 </div>
                                             <?php endforeach; ?>
                                         </div>
@@ -134,6 +134,10 @@ require_once '../../server.php';
                                                     <div class="form-group">
                                                         <label for="">No Telp</label>
                                                         <input type="text" name="phone" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Catatan <small>(optional)</small></label>
+                                                        <textarea name="note" id="" cols="30" rows="10" class="form-control" style="resize: none; min-height: 200px;"></textarea>
                                                     </div>
                                                     <div class="form-group mb-0">
                                                         <button type="submit" class="btn btn-primary">Simpan</button>
