@@ -50,7 +50,9 @@
                                                     <tr>
                                                         <th class="col-1">#</th>
                                                         <th>Nama</th>
-                                                        <th>Aksi</th>
+                                                        <?php if (\App\Models\User::isAdmin()): ?>
+                                                            <th>Aksi</th>
+                                                        <?php endif; ?>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -58,9 +60,11 @@
                                                         <tr>
                                                             <td><?= $index + 1; ?></td>
                                                             <td><img src="../../uploads/images/rooms/<?= $image->name; ?>" style="width: 150px; height: 150px;" alt=""></td>
-                                                            <td>
-                                                                <button data-toggle="modal" data-target="#destroy-modal" data-url="<?= route('admin.rooms.galleries.destroy') . '?' . http_build_query(['id' => $image->id, 'room_id' => $_GET['room_id']]); ?>" class="btn btn-danger btn-delete"><i class="fa fa-trash"></i></button>
-                                                            </td>
+                                                            <?php if (\App\Models\User::isAdmin()): ?>
+                                                                <td>
+                                                                    <button data-toggle="modal" data-target="#destroy-modal" data-url="<?= route('admin.rooms.galleries.destroy') . '?' . http_build_query(['id' => $image->id, 'room_id' => $_GET['room_id']]); ?>" class="btn btn-danger btn-delete"><i class="fa fa-trash"></i></button>
+                                                                </td>
+                                                            <?php endif; ?>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                     </tbody>

@@ -57,7 +57,9 @@
                                             <th>Tanggal Pemesanan</th>
                                             <th>Deskripsi</th>
                                             <th>Status</th>
-                                            <th>Aksi</th>
+                                            <?php if (\App\Models\User::isAdmin()): ?>
+                                                <th>Aksi</th>
+                                            <?php endif; ?>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -94,13 +96,15 @@
                                                             <span class="badge badge-success">Selesai</span>
                                                         <?php endif; ?>
                                                     </td>
-                                                    <td>
-                                                        <?php if ($complaint['status'] == \App\Models\Complaint::COMPLAINT_STATUS_NOT_FINISHED): ?>
-                                                            <button data-url="<?= route('admin.complaints.update') . '?' . http_build_query(['complaint_id' => $complaint['id']]); ?>" data-toggle="modal" data-target="#complaint-finish-modal" class="btn btn-success btn-accepted"><i class="fa fa-check"></i></button>
-                                                        <?php else: ?>
-                                                            -
-                                                        <?php endif; ?>
-                                                    </td>
+                                                    <?php if (\App\Models\User::isAdmin()): ?>
+                                                        <td>
+                                                            <?php if ($complaint['status'] == \App\Models\Complaint::COMPLAINT_STATUS_NOT_FINISHED): ?>
+                                                                <button data-url="<?= route('admin.complaints.update') . '?' . http_build_query(['complaint_id' => $complaint['id']]); ?>" data-toggle="modal" data-target="#complaint-finish-modal" class="btn btn-success btn-accepted"><i class="fa fa-check"></i></button>
+                                                            <?php else: ?>
+                                                                -
+                                                            <?php endif; ?>
+                                                        </td>
+                                                    <?php endif; ?>
                                                 </tr>
                                             <?php endforeach; ?>
                                         </tbody>

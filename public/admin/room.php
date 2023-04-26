@@ -37,9 +37,11 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h4>Kamar</h4>
-                                    <div class="card-header-action">
-                                        <a href="<?= route('admin.rooms.form'); ?>" class="btn btn-primary">Tambah Kamar</a>
-                                    </div>
+                                    <?php if (\App\Models\User::isAdmin()): ?>
+                                        <div class="card-header-action">
+                                            <a href="<?= route('admin.rooms.form'); ?>" class="btn btn-primary">Tambah Kamar</a>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -63,8 +65,10 @@
                                                                 <td><?= $room->name; ?></td>
                                                                 <td><?= format_currency($room->price); ?></td>
                                                                 <td>
-                                                                    <a href="<?= route('admin.rooms.form') . '?' . http_build_query(['id' => $room->id]); ?>" class="btn btn-primary"><i class="fa fa-pen"></i></a>
-                                                                    <button data-toggle="modal" data-target="#destroy-modal" data-url="<?= route('admin.rooms.destroy') . '?' . http_build_query(['id' => $room->id]); ?>" class="btn btn-danger btn-delete"><i class="fa fa-trash"></i></button>
+                                                                    <?php if (\App\Models\User::isAdmin()): ?>
+                                                                        <a href="<?= route('admin.rooms.form') . '?' . http_build_query(['id' => $room->id]); ?>" class="btn btn-primary"><i class="fa fa-pen"></i></a>
+                                                                        <button data-toggle="modal" data-target="#destroy-modal" data-url="<?= route('admin.rooms.destroy') . '?' . http_build_query(['id' => $room->id]); ?>" class="btn btn-danger btn-delete"><i class="fa fa-trash"></i></button>
+                                                                    <?php endif; ?>
                                                                     <a href="<?= route('admin.rooms.facilities.index') . '?' . http_build_query(['room_id' => $room->id]); ?>" class="btn btn-success"><i class="fa fa-list"></i></a>
                                                                     <a href="<?= route('admin.rooms.galleries.index') . '?' . http_build_query(['room_id' => $room->id]); ?>" class="btn btn-primary"><i class="fa fa-image"></i></a>
                                                                 </td>

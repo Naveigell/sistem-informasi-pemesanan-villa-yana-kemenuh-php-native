@@ -159,8 +159,10 @@
                                                                             }
                                                                         ?>
 
-                                                                        <button data-title="Terima" data-url="<?= route('admin.orders.update') . '?' . http_build_query(array_merge($query, ['status' => 1])); ?>" data-toggle="modal" data-target="#order-modal" class="btn btn-success btn-accepted"><i class="fa fa-check"></i></button>
-                                                                        <button data-title="Tolak" data-url="<?= route('admin.orders.update') . '?' . http_build_query(array_merge($query, ['status' => 3])); ?>" data-toggle="modal" data-target="#order-modal" class="btn btn-danger btn-rejected"><i class="fa fa-times"></i></button>
+                                                                        <?php if (\App\Models\User::isAdmin()): ?>
+                                                                            <button data-title="Terima" data-url="<?= route('admin.orders.update') . '?' . http_build_query(array_merge($query, ['status' => 1])); ?>" data-toggle="modal" data-target="#order-modal" class="btn btn-success btn-accepted"><i class="fa fa-check"></i></button>
+                                                                            <button data-title="Tolak" data-url="<?= route('admin.orders.update') . '?' . http_build_query(array_merge($query, ['status' => 3])); ?>" data-toggle="modal" data-target="#order-modal" class="btn btn-danger btn-rejected"><i class="fa fa-times"></i></button>
+                                                                        <?php endif; ?>
                                                                     <?php endif; ?>
                                                                 </td>
                                                             </tr>

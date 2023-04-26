@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Lib\Application\Singleton;
 use Lib\Model\Model;
+use Lib\Session\Session;
 
 class User extends Model
 {
@@ -19,5 +20,10 @@ class User extends Model
 
     public function biodata() {
         return $this->hasOne(Biodata::class, 'user_id');
+    }
+
+    public static function isAdmin()
+    {
+        return Session::get('user')['role'] == User::ROLE_ADMIN;
     }
 }

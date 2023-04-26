@@ -37,9 +37,11 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h4>Fasilitas</h4>
-                                    <div class="card-header-action">
-                                        <a href="<?= route('admin.rooms.facilities.form') . '?' . http_build_query(["room_id" => $_GET['room_id']]); ?>" class="btn btn-primary">Tambah Fasilitas</a>
-                                    </div>
+                                    <?php if (\App\Models\User::isAdmin()): ?>
+                                        <div class="card-header-action">
+                                            <a href="<?= route('admin.rooms.facilities.form') . '?' . http_build_query(["room_id" => $_GET['room_id']]); ?>" class="btn btn-primary">Tambah Fasilitas</a>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -50,7 +52,9 @@
                                                     <tr>
                                                         <th class="col-1">#</th>
                                                         <th>Nama</th>
-                                                        <th>Aksi</th>
+                                                        <?php if (\App\Models\User::isAdmin()): ?>
+                                                            <th>Aksi</th>
+                                                        <?php endif; ?>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -58,10 +62,12 @@
                                                             <tr>
                                                                 <td><?= $index + 1; ?></td>
                                                                 <td><?= $facility->name; ?></td>
-                                                                <td>
-                                                                    <a href="<?= route('admin.rooms.facilities.form') . '?' . http_build_query(['id' => $facility->id, 'room_id' => $_GET['room_id']]); ?>" class="btn btn-primary"><i class="fa fa-pen"></i></a>
-                                                                    <button data-toggle="modal" data-target="#destroy-modal" data-url="<?= route('admin.rooms.facilities.destroy') . '?' . http_build_query(['id' => $facility->id, 'room_id' => $_GET['room_id']]); ?>" class="btn btn-danger btn-delete"><i class="fa fa-trash"></i></button>
-                                                                </td>
+                                                                <?php if (\App\Models\User::isAdmin()): ?>
+                                                                    <td>
+                                                                        <a href="<?= route('admin.rooms.facilities.form') . '?' . http_build_query(['id' => $facility->id, 'room_id' => $_GET['room_id']]); ?>" class="btn btn-primary"><i class="fa fa-pen"></i></a>
+                                                                        <button data-toggle="modal" data-target="#destroy-modal" data-url="<?= route('admin.rooms.facilities.destroy') . '?' . http_build_query(['id' => $facility->id, 'room_id' => $_GET['room_id']]); ?>" class="btn btn-danger btn-delete"><i class="fa fa-trash"></i></button>
+                                                                    </td>
+                                                                <?php endif; ?>
                                                             </tr>
                                                         <?php endforeach; ?>
                                                     </tbody>

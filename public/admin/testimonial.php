@@ -36,9 +36,11 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h4>Testimonial</h4>
-                                    <div class="card-header-action">
-                                        <a href="<?= route('admin.testimonials.form'); ?>" class="btn btn-primary">Tambah Testimoni</a>
-                                    </div>
+                                    <?php if (\App\Models\User::isAdmin()): ?>
+                                        <div class="card-header-action">
+                                            <a href="<?= route('admin.testimonials.form'); ?>" class="btn btn-primary">Tambah Testimoni</a>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="card-body">
                                     <table class="table table-bordered table-md dataTable" id="table-1">
@@ -48,7 +50,9 @@
                                             <th>Nama</th>
                                             <th>Deskripsi</th>
                                             <th>Bintang</th>
-                                            <th>Aksi</th>
+                                            <?php if (\App\Models\User::isAdmin()): ?>
+                                                <th>Aksi</th>
+                                            <?php endif; ?>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -62,9 +66,11 @@
                                                         <i class="fa fa-star testimonial-stars" <?php if ($i <= $testimonial->star): ?> style="color: darkorange;" <?php endif; ?>></i>
                                                     <?php endforeach; ?>
                                                 </td>
-                                                <td>
-                                                    <button data-toggle="modal" data-target="#destroy-modal" data-url="<?= route('admin.testimonials.destroy') . '?' . http_build_query(['testimonial_id' => $testimonial->id]); ?>" class="btn btn-danger btn-delete"><i class="fa fa-trash"></i></button>
-                                                </td>
+                                                <?php if (\App\Models\User::isAdmin()): ?>
+                                                    <td>
+                                                        <button data-toggle="modal" data-target="#destroy-modal" data-url="<?= route('admin.testimonials.destroy') . '?' . http_build_query(['testimonial_id' => $testimonial->id]); ?>" class="btn btn-danger btn-delete"><i class="fa fa-trash"></i></button>
+                                                    </td>
+                                                <?php endif; ?>
                                             </tr>
                                         <?php endforeach; ?>
                                         </tbody>

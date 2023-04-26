@@ -19,7 +19,7 @@ if (!$user) {
 } else {
     Session::put("user", $user);
 
-    if ($user['role'] == User::ROLE_ADMIN) {
+    if ($user['role'] == User::ROLE_ADMIN || $user['role'] == User::ROLE_STAFF) {
         redirect($routes['admin.dashboard.index']);
     } elseif ($user['role'] == User::ROLE_CUSTOMER) {
         redirect($routes['home.index']);

@@ -65,7 +65,9 @@
                                         </div>
                                         <div class="col-12 mt-3">
                                             <button class="btn btn-primary">Filter</button>
-                                            <a href="<?= route('admin.reports.incomes.print.index') . '?' . http_build_query($_GET); ?>" class="btn btn-success">Cetak</a>
+                                            <?php if (\App\Models\User::isAdmin()): ?>
+                                                <a href="<?= route('admin.reports.incomes.print.index') . '?' . http_build_query($_GET); ?>" class="btn btn-success">Cetak</a>
+                                            <?php endif; ?>
                                         </div>
                                     </form>
                                     <div class="table-responsive">
