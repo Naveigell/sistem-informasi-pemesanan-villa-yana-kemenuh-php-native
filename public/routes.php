@@ -6,6 +6,9 @@ return [
     "auth.login.index" => "login.php",
     "auth.login.store" => "actions/auth/auth_login.php",
 
+    "auth.registration.index" => "auth/registration.php",
+    "auth.registration.store" => "actions/auth/auth_registration.php",
+
     "auth.forgot_password.index" => "auth/forgot_password.php",
     "auth.forgot_password.store" => "actions/auth/forgot_password_store.php",
 

@@ -21,6 +21,7 @@
     <file url="file://$PROJECT_DIR$/public/actions/admin/room_update.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/admin/testimonial_destroy.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/auth/auth_login.php" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/public/actions/auth/auth_registration.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/auth/forgot_password_store.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/auth/reset_password_store.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/customer/biodata_update.php" dialect="MySQL" />
