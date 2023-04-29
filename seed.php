@@ -137,6 +137,7 @@ times(1, function () {
                 "start_date" => date('Y-m-d', $startDate),
                 "end_date"   => $endDate,
                 "status"     => rand(0, 1),
+                "created_at" => date('Y-m-d')
             ]);
 
             $name = str_random(40) . ".jpg";

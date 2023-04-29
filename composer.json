@@ -3,6 +3,7 @@
         "symfony/dotenv": "^6.2",
         "phpmailer/phpmailer": "^6.8",
         "ext-pdo": "*",
-        "ramsey/uuid": "^4.7"
+        "ramsey/uuid": "^4.7",
+        "nesbot/carbon": "^2.66"
     }
 }

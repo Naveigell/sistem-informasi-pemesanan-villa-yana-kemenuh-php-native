@@ -44,6 +44,7 @@ require_once '../../server.php';
                                     <h4>List Pesanan</h4>
                                 </div>
                                 <div class="card-body">
+                                    <small class="text text-danger mb-2 d-inline-block">* Order akan hilang jika pembayaran belum dibayar maksimal 2 hari</small>
                                     <table class="table table-hover">
                                         <thead>
                                         <tr>
@@ -93,6 +94,13 @@ require_once '../../server.php';
 
                                                         <?php if (!$payment): ?>
                                                             <span class="badge badge-dark">Belum dibayar</span>
+
+                                                            <?php
+                                                                $date = date_create($booking['created_at']);
+                                                                $date = date_add($date, date_interval_create_from_date_string('2 days'));
+                                                            ?>
+
+                                                            <small class="text text-danger mb-2 d-inline-block">* Bayar sebelum <?= date('d F Y', $date->getTimestamp()) ?></small>
                                                         <?php endif; ?>
                                                     </td>
                                                     <td>

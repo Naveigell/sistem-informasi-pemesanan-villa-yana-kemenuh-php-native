@@ -2,10 +2,10 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="index.html">Villa</a>
+            <a href="<?= route('admin.dashboard.index'); ?>">Villa</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="index.html">Vl</a>
+            <a href="<?= route('admin.dashboard.index'); ?>">Vl</a>
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Home</li>

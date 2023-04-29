@@ -10,6 +10,7 @@ create table if not exists bookings (
     end_date DATETIME NOT NULL,
     status TINYINT UNSIGNED NOT NULL DEFAULT 0, -- 0 means not acc, 1 means acc, 2 means canceled
     note TEXT NULL,
+    created_at DATETIME NOT NULL,
 
     FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE ON UPDATE CASCADE
 )

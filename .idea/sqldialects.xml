@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/middleware.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/migration/2023_01_29_09_52_00_create_users_table.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/migration/2023_01_29_10_03_00_create_biodatas_table.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/migration/2023_01_29_10_39_00_create_rooms_table.sql" dialect="MySQL" />
