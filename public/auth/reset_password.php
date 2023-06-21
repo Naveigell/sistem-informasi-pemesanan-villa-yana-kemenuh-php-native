@@ -49,11 +49,11 @@
                                 <?php endforeach; ?>
                                 <div class="form-group">
                                     <label for="password">Password Baru</label>
-                                    <input id="password" type="password" class="form-control" data-indicator="pwindicator" name="password" tabindex="2">
+                                    <input id="password" required type="password" class="form-control" data-indicator="pwindicator" name="password" tabindex="2">
                                 </div>
                                 <div class="form-group">
                                     <label for="password-confirm">Konfirmasi Password Baru</label>
-                                    <input id="password-confirm" type="password" class="form-control" name="confirm_password" tabindex="2">
+                                    <input id="password-confirm" required type="password" class="form-control" name="confirm_password" tabindex="2">
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">

@@ -49,11 +49,11 @@
                                 <form method="post" class="card-body" action="<?= route('admin.testimonials.store'); ?>" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <label for="inputAddress">Nama</label>
-                                        <input type="text" name="name" class="form-control">
+                                        <input required type="text" name="name" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="inputAddress">Description</label>
-                                        <textarea name="description" id="" cols="30" rows="50" class="form-control" style="height: 200px !important; resize: none;"></textarea>
+                                        <textarea required name="description" id="" cols="30" rows="50" class="form-control" style="height: 200px !important; resize: none;"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <?php foreach (range(1, 5) as $i): ?>

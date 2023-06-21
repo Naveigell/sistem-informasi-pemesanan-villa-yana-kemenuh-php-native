@@ -57,7 +57,7 @@
 
                                 <div class="form-group">
                                     <label for="address">Alamat</label>
-                                    <textarea name="address" id="address" cols="30" rows="10" class="form-control" style="min-height: 150px; resize: none;"></textarea>
+                                    <textarea required name="address" id="address" cols="30" rows="10" class="form-control" style="min-height: 150px; resize: none;"></textarea>
                                 </div>
 
                                 <div class="form-group">

@@ -121,19 +121,19 @@ require_once '../../server.php';
                                                     <input type="hidden" name="end_date" value="<?= $_GET['to']; ?>">
                                                     <div class="form-group">
                                                         <label for="">Nama</label>
-                                                        <input type="text" name="name" class="form-control">
+                                                        <input required type="text" name="name" class="form-control">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="">Alamat</label>
-                                                        <input type="text" name="address" class="form-control">
+                                                        <input required type="text" name="address" class="form-control">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="">Email</label>
-                                                        <input type="email" name="email" class="form-control" value="<?= \Lib\Session\Session::get('user')['email']; ?>">
+                                                        <input required type="email" name="email" class="form-control" value="<?= \Lib\Session\Session::get('user')['email']; ?>">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="">No Telp</label>
-                                                        <input type="text" name="phone" class="form-control">
+                                                        <input required type="text" name="phone" class="form-control">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="">Catatan <small>(optional)</small></label>

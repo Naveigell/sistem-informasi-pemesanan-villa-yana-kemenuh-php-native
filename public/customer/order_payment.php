@@ -76,7 +76,7 @@ require_once '../../server.php';
                                                     <label for="">Bukti Pembayaran</label>
                                                     <input type="hidden" name="room_id" value="<?= $_GET['room_id']; ?>">
                                                     <input type="hidden" name="booking_id" value="<?= $_GET['booking_id']; ?>">
-                                                    <input type="file" name="proof" class="form-control" accept="image/png,image/jpeg,image/jpg">
+                                                    <input required type="file" name="proof" class="form-control" accept="image/png,image/jpeg,image/jpg">
                                                 </div>
 
                                                 <div class="form-group mb-0">

@@ -50,7 +50,7 @@ require_once '../../server.php';
                                     <form action="<?= route('customers.orders.complaints.store') . '?' . http_build_query($_GET); ?>" class="" method="post">
                                         <div class="row">
                                             <div class="form-group col-12">
-                                                <textarea name="description" id="" cols="30" rows="10" placeholder="Tulis Komplain .." class="form-control" style="min-height: 200px; resize: none;"></textarea>
+                                                <textarea required name="description" id="" cols="30" rows="10" placeholder="Tulis Komplain .." class="form-control" style="min-height: 200px; resize: none;"></textarea>
                                             </div>
                                             <div class="form-group col-12">
                                                 <button type="submit" class="btn btn-primary">Kirim</button>

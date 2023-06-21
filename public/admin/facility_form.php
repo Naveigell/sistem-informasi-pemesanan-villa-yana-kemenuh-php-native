@@ -53,7 +53,7 @@
                                 <form method="post" class="card-body" action="<?= array_key_exists("id", $_GET) ? route('admin.rooms.facilities.update') . '?' . http_build_query($_GET) : route('admin.rooms.facilities.store') . '?' . http_build_query($_GET); ?>" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <label for="inputAddress">Nama Fasilitas</label>
-                                        <input type="text" name="name" value="<?= $facility['name']; ?>" class="form-control">
+                                        <input required type="text" name="name" value="<?= $facility['name']; ?>" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <button class="btn btn-primary">Simpan</button>

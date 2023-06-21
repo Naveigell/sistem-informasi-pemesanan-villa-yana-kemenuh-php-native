@@ -57,11 +57,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="inputAddress">Nomor Kamar</label>
-                                        <input type="text" name="room_number" <?= array_key_exists('id', $_GET) ? 'disabled' : ''; ?> value="<?= $room['room_number']; ?>" class="form-control">
+                                        <input required type="text" name="room_number" <?= array_key_exists('id', $_GET) ? 'disabled' : ''; ?> value="<?= $room['room_number']; ?>" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="inputAddress">Nama</label>
-                                        <input type="text" name="name" value="<?= $room['name']; ?>" class="form-control">
+                                        <input required type="text" name="name" value="<?= $room['name']; ?>" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="inputAddress">Harga Kamar Per Malam</label>
@@ -69,12 +69,12 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">Rp.</div>
                                             </div>
-                                            <input type="text" name="price" value="<?= $room['price']; ?>" class="form-control nominal">
+                                            <input required type="text" name="price" value="<?= $room['price']; ?>" class="form-control nominal">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="inputAddress">Description</label>
-                                        <textarea name="description" id="" cols="30" rows="50" class="form-control" style="height: 200px !important; resize: none;"><?= $room['description']; ?></textarea>
+                                        <textarea required name="description" id="" cols="30" rows="50" class="form-control" style="height: 200px !important; resize: none;"><?= $room['description']; ?></textarea>
                                     </div>
                                     <div class="form-group">
                                         <button class="btn btn-primary">Simpan</button>

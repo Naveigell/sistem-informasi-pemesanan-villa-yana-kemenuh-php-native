@@ -53,7 +53,7 @@
                                 <form method="post" class="card-body" action="<?= array_key_exists("id", $_GET) ? route('admin.rooms.galleries.update') . '?' . http_build_query($_GET) : route('admin.rooms.galleries.store') . '?' . http_build_query($_GET); ?>" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <label for="inputAddress">Gambar</label>
-                                        <input type="file" accept="image/png,image/jpeg,image/jpg" name="image" value="<?= $image['name']; ?>" class="form-control">
+                                        <input required type="file" accept="image/png,image/jpeg,image/jpg" name="image" value="<?= $image['name']; ?>" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <button class="btn btn-primary">Simpan</button>
