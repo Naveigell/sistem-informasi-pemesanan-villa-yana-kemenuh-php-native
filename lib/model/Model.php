@@ -73,6 +73,17 @@ class Model implements CreateReadUpdateDelete
         return new HasMany($table, $foreignKey);
     }
 
+    public function getAllToArray()
+    {
+        $sql = "SELECT * FROM {$this->table}";
+
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+
+        // fetch all data
+        return $statement->fetchAll();
+    }
+
     public function getAll()
     {
         $sql = "SELECT * FROM {$this->table}";

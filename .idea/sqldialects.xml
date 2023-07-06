@@ -5,6 +5,7 @@
     <file url="file://$PROJECT_DIR$/migration/2023_01_29_09_52_00_create_users_table.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/migration/2023_01_29_10_03_00_create_biodatas_table.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/migration/2023_01_29_10_39_00_create_rooms_table.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/migration/2023_01_29_10_40_00_create_promos_table.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/migration/2023_01_29_10_42_00_create_bookings_table.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/migration/2023_01_29_10_55_00_create_complaints_table.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/migration/2023_01_31_19_54_00_create_facilities_table.sql" dialect="MySQL" />
@@ -17,6 +18,8 @@
     <file url="file://$PROJECT_DIR$/public/actions/admin/facility_update.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/admin/gallery_destroy.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/admin/order_update.php" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/public/actions/admin/promo_destroy.php" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/public/actions/admin/promo_update.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/admin/room_destroy.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/admin/room_update.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/admin/testimonial_destroy.php" dialect="MySQL" />
@@ -36,6 +39,7 @@
     <file url="file://$PROJECT_DIR$/public/admin/gallery_form.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/admin/order.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/admin/order_detail.php" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/public/admin/promo_form.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/admin/reports/income.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/admin/reports/income_print.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/customer/biodata.php" dialect="MySQL" />

@@ -2,6 +2,7 @@ create table if not exists bookings (
     id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     room_id BIGINT UNSIGNED NOT NULL,
     user_id BIGINT UNSIGNED NOT NULL,
+    promo_id BIGINT UNSIGNED NULL,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     phone VARCHAR(255) NOT NULL,
@@ -12,5 +13,7 @@ create table if not exists bookings (
     note TEXT NULL,
     created_at DATETIME NOT NULL,
 
-    FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (promo_id) REFERENCES promos(id) ON DELETE CASCADE ON UPDATE CASCADE
 )

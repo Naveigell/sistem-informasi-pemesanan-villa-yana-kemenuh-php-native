@@ -44,6 +44,12 @@ return [
     "admin.rooms.facilities.update" => "actions/admin/facility_update.php",
     "admin.rooms.facilities.destroy" => "actions/admin/facility_destroy.php",
 
+    "admin.promos.index" => "admin/promo.php",
+    "admin.promos.form" => "admin/promo_form.php",
+    "admin.promos.store" => "actions/admin/promo_store.php",
+    "admin.promos.update" => "actions/admin/promo_update.php",
+    "admin.promos.destroy" => "actions/admin/promo_destroy.php",
+
     "admin.rooms.galleries.index" => "admin/gallery.php",
     "admin.rooms.galleries.form" => "admin/gallery_form.php",
     "admin.rooms.galleries.store" => "actions/admin/gallery_store.php",

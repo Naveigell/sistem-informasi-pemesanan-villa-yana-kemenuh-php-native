@@ -12,6 +12,8 @@
             <li><a class="nav-link" href="<?= route('admin.testimonials.index'); ?>"><i class="fa fa-star"></i> <span>Testimoni</span></a></li>
             <li class="menu-header">Additional</li>
             <li><a class="nav-link" href="<?= route('admin.rooms.index'); ?>"><i class="fa fa-building"></i> <span>Kamar</span></a></li>
+            <li class="menu-header">Promo</li>
+            <li><a class="nav-link" href="<?= route('admin.promos.index'); ?>"><i class="fa fa-certificate"></i> <span>Promo</span></a></li>
             <li class="menu-header">Pemesanan</li>
             <li><a class="nav-link" href="<?= route('admin.orders.index'); ?>"><i class="fa fa-shopping-cart"></i> <span>Pemesanan</span></a></li>
             <li class="menu-header">Komplain</li>

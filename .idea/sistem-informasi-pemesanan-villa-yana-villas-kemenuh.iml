@@ -15,9 +15,11 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="jquery.inputmask" level="application" />
     <orderEntry type="library" name="sweetalert" level="application" />
-    <orderEntry type="library" name="lightslider" level="application" />
-    <orderEntry type="library" name="@sweetalert2/theme-dark" level="application" />
-    <orderEntry type="library" name="sweetalert2" level="application" />
     <orderEntry type="library" name="@sweetalert2/theme-minimal" level="application" />
+    <orderEntry type="library" name="@sweetalert2/theme-dark" level="application" />
+    <orderEntry type="library" name="lightslider" level="application" />
+    <orderEntry type="library" name="sweetalert2" level="application" />
+    <orderEntry type="library" name="magnify" level="application" />
+    <orderEntry type="library" name="moment.js" level="application" />
   </component>
 </module>

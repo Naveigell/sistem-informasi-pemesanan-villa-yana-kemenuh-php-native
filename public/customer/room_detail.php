@@ -22,6 +22,13 @@ require_once '../../server.php';
 
         $isBooked = false;
 
+        $promos = \App\Models\Promo::instance()->getAllToArray();
+
+        // create price formatted in every promo
+        foreach ($promos as $index => $promo) {
+            $promos[$index]['price_formatted'] = number_format($promo['price'], 0, ',', '.');
+        }
+
         if ($from && $to && $roomId) {
             $booking = \App\Models\Booking::instance()->raw("SELECT * FROM bookings WHERE room_id = ? AND DATE(start_date) >= ? AND DATE(end_date) <= ?", [$roomId, $from, $to])->fetch(PDO::FETCH_OBJ);
 
@@ -56,7 +63,7 @@ require_once '../../server.php';
                                         </ol>
                                         <div class="carousel-inner">
                                             <?php foreach ($images as $index => $image): ?>
-                                                <div class="carousel-item <?= $index == 0 ? 'active' : ''; ?>">
+                                                <div class="zoom carousel-item <?= $index == 0 ? 'active' : ''; ?>">
                                                     <img class="d-block w-100" src="../uploads/images/rooms/<?= $image->name; ?>" style="height: 650px !important; object-fit: cover;">
                                                 </div>
                                             <?php endforeach; ?>
@@ -114,11 +121,14 @@ require_once '../../server.php';
                                         <?php if ($from && $to && !$isBooked && $roomId): ?>
                                             <div class="row mt-4">
                                                 <div class="alert alert-success col-12">Kamar dapat dipesan.</div>
+                                                <div class="alert alert-warning col-12" id="alert-promo" style="display: none;"><i class="fa fa-certificate"></i> Kamu dapat promo</div>
+
                                                 <form action="<?= route('rooms.bookings.store'); ?>" class="col-lg-8 col-md-12" method="post" enctype="multipart/form-data">
                                                     <h6 class="text text-success">Form Pemesanan</h6>
                                                     <input type="hidden" name="room_id" value="<?= $_GET['room_id']; ?>">
-                                                    <input type="hidden" name="start_date" value="<?= $_GET['from']; ?>">
-                                                    <input type="hidden" name="end_date" value="<?= $_GET['to']; ?>">
+                                                    <input type="hidden" name="start_date" id="from" value="<?= $_GET['from']; ?>">
+                                                    <input type="hidden" name="end_date" id="to" value="<?= $_GET['to']; ?>">
+                                                    <input type="hidden" name="promo_id" value="" id="promo-id">
                                                     <div class="form-group">
                                                         <label for="">Nama</label>
                                                         <input required type="text" name="name" class="form-control">
@@ -141,7 +151,13 @@ require_once '../../server.php';
                                                     </div>
                                                     <div class="form-group mb-0">
                                                         <button type="submit" class="btn btn-primary">Simpan</button>
+
+                                                        <?php if ($from && $to && !$isBooked && $roomId): ?>
+                                                            <button data-toggle="modal" data-target="#promo-modal" type="button" class="btn btn-warning" id="button-promo" style="display: none;"><i class="fa fa-certificate"></i> Cek Deskripsi Promo</button>
+                                                        <?php endif; ?>
                                                     </div>
+
+                                                    <input type="hidden" id="all-dates" value='<?= json_encode($promos); ?>'>
                                                 </form>
                                             </div>
                                         <?php endif; ?>
@@ -153,6 +169,55 @@ require_once '../../server.php';
                 </div>
             </section>
         </div>
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="promo-modal" style="display: none;" aria-hidden="true" >
+            <div class="modal-dialog" role="document">
+                <form class="modal-content" method="post" action="">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Promo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Kamu Dapat Promo</p>
+                        <p>Dengan potongan <b><span id="promo-price"></span></b></p>
+                        <p id="promo-description"></p>
+                    </div>
+                    <div class="modal-footer bg-whitesmoke br">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script>
+            var dateElement = document.getElementById('all-dates').value;
+
+            // if date element is not exists, it's mean the user doesn't choose any date
+            if (dateElement) {
+                var allDates = JSON.parse(document.getElementById('all-dates').value);
+
+                for (var date of allDates) {
+
+                    var startDate = moment(date.start_date, "YYYY-MM-DD");
+                    var endDate = moment(date.end_date, "YYYY-MM-DD");
+
+                    var from = moment(document.getElementById('from').value);
+                    var to = moment(document.getElementById('to').value);
+
+                    if (from.isBetween(startDate, endDate) || to.isBetween(startDate, endDate)) {
+                        document.getElementById('promo-id').value = date.id;
+                        document.getElementById('promo-description').innerHTML = date.description;
+
+                        document.getElementById('alert-promo').style.display = 'block';
+                        document.getElementById('button-promo').style.display = 'inline-block';
+
+                        document.getElementById('promo-price').innerHTML = date.price_formatted;
+                    }
+                }
+            }
+        </script>
 
         <?php require_once '../layout/customer/footer.php'; ?>
 
