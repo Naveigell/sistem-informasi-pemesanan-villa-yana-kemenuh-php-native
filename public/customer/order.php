@@ -100,12 +100,23 @@ require_once '../../server.php';
                                                                 $date = date_add($date, date_interval_create_from_date_string('2 days'));
                                                             ?>
 
+                                                            <input type="hidden" id="time-<?= $booking["id"]; ?>" value="<?= date('Y-m-d', $date->getTimestamp()); ?>">
+
                                                             <small class="text text-danger mb-2 d-inline-block">* Bayar sebelum <?= date('d F Y', $date->getTimestamp()) ?></small>
+
+                                                            <p class="badge badge-danger" id="countdown-<?= $booking['id']; ?>"></p>
+                                                            <script>
+                                                                createCountDown(document.getElementById('time-<?= $booking["id"]; ?>').value, document.getElementById('countdown-<?= $booking["id"]; ?>'));
+                                                            </script>
+
                                                         <?php endif; ?>
                                                     </td>
                                                     <td>
                                                         <a href="<?= route('customers.orders.show') . '?' . http_build_query(['booking_id' => $booking['id'], 'room_id' => $booking['room_id']]); ?>" class="btn btn-warning"><i class="fa fa-eye"></i></a>
-                                                        <a href="<?= route('customers.orders.complaints.index') . '?' . http_build_query(['booking_id' => $booking['id'], 'room_id' => $booking['room_id']]); ?>" class="btn btn-primary"><i class="fa fa-envelope"></i></a>
+
+                                                        <?php if ($booking['status'] == \App\Models\Booking::STATUS_ACC): ?>
+                                                            <a href="<?= route('customers.orders.complaints.index') . '?' . http_build_query(['booking_id' => $booking['id'], 'room_id' => $booking['room_id']]); ?>" class="btn btn-primary"><i class="fa fa-envelope"></i></a>
+                                                        <?php endif; ?>
 
                                                         <?php if ($booking['status'] == \App\Models\Booking::STATUS_NOT_ACC): ?>
                                                             <button data-url="<?= route('customer.orders.update.cancel') . '?' . http_build_query(['booking_id' => $booking['id']]); ?>" class="btn btn-danger btn-cancel-order" data-toggle="modal" data-target="#order-cancel-modal"><i class="fa fa-times"></i></button>

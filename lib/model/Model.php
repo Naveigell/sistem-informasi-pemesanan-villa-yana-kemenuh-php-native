@@ -171,6 +171,11 @@ class Model implements CreateReadUpdateDelete
         return $model;
     }
 
+    public function find($id)
+    {
+        return $this->raw("SELECT * FROM {$this->table} WHERE id = ?", [$id])->fetchObject();
+    }
+
     public function raw(string $sql, $bindings = [])
     {
         if (!is_array($bindings)) {

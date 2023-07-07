@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/app/models/Booking.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/middleware.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/migration/2023_01_29_09_52_00_create_users_table.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/migration/2023_01_29_10_03_00_create_biodatas_table.sql" dialect="MySQL" />
@@ -27,6 +28,7 @@
     <file url="file://$PROJECT_DIR$/public/actions/auth/auth_registration.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/auth/forgot_password_store.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/auth/reset_password_store.php" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/public/actions/customer/avatar_update.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/customer/biodata_update.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/customer/order_update_cancel.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/actions/customer/password_update.php" dialect="MySQL" />
@@ -48,6 +50,7 @@
     <file url="file://$PROJECT_DIR$/public/customer/order_detail.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/customer/order_payment.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/public/customer/room_detail.php" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/public/layout/customer/header.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/seed.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/test.php" dialect="MySQL" />
   </component>

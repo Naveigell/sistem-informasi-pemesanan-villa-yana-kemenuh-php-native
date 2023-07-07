@@ -85,6 +85,43 @@ require_once '../../server.php';
                                 </div>
                             </form>
                         </div>
+                        <div class="col-md-6 col-sm-6 col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Foto Profil</h4>
+                                </div>
+                                <?php
+                                    $user = \Lib\Session\Session::get('user');
+                                    $biodata = \App\Models\Biodata::instance()->raw("SELECT * FROM biodatas WHERE user_id = {$user['id']}")->fetchObject();
+                                    $avatar = asset('assets/img/avatar/avatar-1.png');
+
+                                    if (file_exists("../uploads/images/biodata/profile/" . $biodata->avatar)) {
+                                        $avatar = "../uploads/images/biodata/profile/" . $biodata->avatar;
+                                    }
+                                ?>
+                                <div class="card-body text text-center">
+                                    <figure class="avatar avatar-xl" style="width: 200px; height: 200px;">
+                                        <img style="width: 200px; height: 200px;" src="<?= $avatar; ?>">
+                                    </figure>
+                                    <br>
+                                    <br>
+                                    <button class="btn btn-primary" id="button-avatar">Ganti</button>
+                                    <br>
+                                    <form action="<?= route('customers.profile.avatar.store'); ?>" id="form" method="post" enctype="multipart/form-data">
+                                        <input type="file" name="avatar" id="avatar" style="visibility: hidden;" accept="image/png,image/jpg,image/jpeg">
+                                    </form>
+                                </div>
+                                <script>
+                                    document.getElementById('button-avatar').addEventListener('click', function () {
+                                        document.getElementById('avatar').click();
+                                    });
+
+                                    document.getElementById('avatar').addEventListener('change', function () {
+                                        document.getElementById('form').submit();
+                                    });
+                                </script>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

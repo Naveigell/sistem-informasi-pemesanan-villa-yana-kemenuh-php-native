@@ -38,6 +38,8 @@ $customer = \App\Models\User::instance()->create([
     "user_id" => $customer->id,
     "phone" => "1234567890",
     "address" => "lorem ipsum dolor sit amet",
+    "identity_card" => mt_rand(111111111, 999999999),
+    "avatar" => str_random(40),
 ]);
 
 times(15, function () {
@@ -54,6 +56,8 @@ times(15, function () {
         "user_id" => $user->id,
         "phone" => "1234567890",
         "address" => "lorem ipsum dolor sit amet",
+        "identity_card" => mt_rand(111111111, 999999999),
+        "avatar" => str_random(40),
     ]);
 });
 

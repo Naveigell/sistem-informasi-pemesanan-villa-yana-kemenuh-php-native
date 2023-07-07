@@ -21,12 +21,7 @@ require_once '../../server.php';
     $roomId = $_GET['room_id'] ?? null;
 
     $isBooked = false;
-
-    if ($from && $to && $roomId) {
-        $booking = \App\Models\Booking::instance()->raw("SELECT * FROM bookings WHERE room_id = ? AND DATE(start_date) >= ? AND DATE(end_date) <= ?", [$roomId, $from, $to])->fetch(PDO::FETCH_OBJ);
-
-        $isBooked = $booking != false; // if booking not false
-    }
+    $booking = \App\Models\Booking::instance()->raw("SELECT * FROM bookings WHERE id = ?", [$_GET['booking_id']])->fetch();
     ?>
 </head>
 
@@ -72,6 +67,18 @@ require_once '../../server.php';
                                                     </ul>
                                                 </div>
                                                 <h6 class="text text-success">Form Pembayaran</h6>
+                                                <?php
+                                                    $date = date_create($booking['created_at']);
+                                                    $date = date_add($date, date_interval_create_from_date_string('2 days'));
+                                                ?>
+
+                                                <input type="hidden" id="time" value="<?= date('Y-m-d', $date->getTimestamp()); ?>">
+                                                <div class="alert alert-danger">
+                                                    Bayar sebelum : <span id="countdown-<?= $booking['id']; ?>"></span>
+                                                </div>
+                                                <script>
+                                                    createCountDown(document.getElementById('time').value, document.getElementById('countdown-<?= $booking["id"]; ?>'));
+                                                </script>
                                                 <div class="form-group">
                                                     <label for="">Bukti Pembayaran</label>
                                                     <input type="hidden" name="room_id" value="<?= $_GET['room_id']; ?>">

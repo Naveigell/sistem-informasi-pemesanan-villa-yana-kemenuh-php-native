@@ -17,6 +17,7 @@ return [
 
     "customers.profile.index" => "customer/biodata.php",
     "customers.profile.store" => "actions/customer/biodata_update.php",
+    "customers.profile.avatar.store" => "actions/customer/avatar_update.php",
     "customers.profile.password.store" => "actions/customer/password_update.php",
 
     "customers.orders.index" => "customer/order.php",

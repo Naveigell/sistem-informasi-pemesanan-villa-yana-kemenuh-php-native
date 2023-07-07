@@ -19,10 +19,16 @@
 
                 <?php
                     $user = \Lib\Session\Session::get('user');
+                    $biodata = \App\Models\Biodata::instance()->raw("SELECT * FROM biodatas WHERE user_id = {$user['id']}")->fetchObject();
+                    $avatar = asset('assets/img/avatar/avatar-1.png');
+
+                    if (file_exists("../uploads/images/biodata/profile/" . $biodata->avatar)) {
+                        $avatar = "../uploads/images/biodata/profile/" . $biodata->avatar;
+                    }
                 ?>
                 <li class="dropdown">
                     <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                        <img alt="image" src="<?= asset('assets/img/avatar/avatar-1.png'); ?>" class="rounded-circle mr-1">
+                        <img alt="image" src="<?= $avatar; ?>" style="width: 30px; height: 30px;" class="rounded-circle mr-1">
                         <div class="d-sm-none d-lg-inline-block"><?= $user['email']; ?></div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
