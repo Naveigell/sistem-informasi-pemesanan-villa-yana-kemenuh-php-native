@@ -38,7 +38,6 @@ $customer = \App\Models\User::instance()->create([
     "user_id" => $customer->id,
     "phone" => "1234567890",
     "address" => "lorem ipsum dolor sit amet",
-    "identity_card" => mt_rand(111111111, 999999999),
     "avatar" => str_random(40),
 ]);
 
@@ -56,7 +55,6 @@ times(15, function () {
         "user_id" => $user->id,
         "phone" => "1234567890",
         "address" => "lorem ipsum dolor sit amet",
-        "identity_card" => mt_rand(111111111, 999999999),
         "avatar" => str_random(40),
     ]);
 });
@@ -132,16 +130,18 @@ times(1, function () {
             $endDate   = date("Y-m-d", strtotime("+" . rand(1, 6) . " day", $startDate));
 
             $booking = \App\Models\Booking::instance()->create([
-                "room_id"    => $roomIds[$index],
-                "user_id"    => $userIds[array_rand($userIds)],
-                "name"       => $users[array_rand($users)]['name'],
-                "email"      => $users[array_rand($users)]['email'],
-                "phone"      => $biodatas[array_rand($biodatas)]['phone'],
-                "address"    => $biodatas[array_rand($biodatas)]['address'],
-                "start_date" => date('Y-m-d', $startDate),
-                "end_date"   => $endDate,
-                "status"     => rand(0, 1),
-                "created_at" => date('Y-m-d')
+                "room_id"       => $roomIds[$index],
+                "user_id"       => $userIds[array_rand($userIds)],
+                "identity_card" => str_random(20),
+                "name"          => $users[array_rand($users)]['name'],
+                "email"         => $users[array_rand($users)]['email'],
+                "phone"         => $biodatas[array_rand($biodatas)]['phone'],
+                "address"       => $biodatas[array_rand($biodatas)]['address'],
+                "start_date"    => date('Y-m-d', $startDate),
+                "end_date"      => $endDate,
+                "status"        => rand(0, 1),
+                "down_payment"  => str_random(30),
+                "created_at"    => date('Y-m-d'),
             ]);
 
             $name = str_random(40) . ".jpg";

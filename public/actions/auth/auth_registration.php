@@ -32,6 +32,7 @@ $user = \App\Models\User::instance()->create([
     "phone" => $phone,
     "address" => $address,
     "user_id" => $user->id,
+    "avatar" => str_random(15),
 ]);
 
 Session::put("success", [

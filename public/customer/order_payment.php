@@ -22,6 +22,12 @@ require_once '../../server.php';
 
     $isBooked = false;
     $booking = \App\Models\Booking::instance()->raw("SELECT * FROM bookings WHERE id = ?", [$_GET['booking_id']])->fetch();
+
+    $promo = null;
+
+    if ($booking['promo_id']) {
+        $promo = \App\Models\Promo::instance()->raw('SELECT * FROM promos WHERE id = ?', [$booking['promo_id']])->fetch(PDO::FETCH_OBJ);
+    }
     ?>
 </head>
 
@@ -51,7 +57,12 @@ require_once '../../server.php';
                                                 <?php endforeach; ?>
                                             </ul>
                                             <h6>Harga Per Malam</h6>
-                                            <p><?= format_currency($room->price); ?></p>
+                                            <?php if ($promo): ?>
+                                                <p>Promo: <?= format_currency($promo->price); ?></p>
+                                                <p><small><strike><?= format_currency($room->price - ($room->price * 0.1)); ?></strike></small>&nbsp;<?= format_currency(max(0, ($room->price - ($room->price * 0.1)) - $promo->price)); ?></p>
+                                            <?php else: ?>
+                                                <p><?= format_currency($room->price - ($room->price * 0.1)); ?></p>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                     <div class="" style="padding-top: 0px !important;">

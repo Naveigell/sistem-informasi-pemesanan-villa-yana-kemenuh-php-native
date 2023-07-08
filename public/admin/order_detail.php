@@ -16,9 +16,14 @@
         $user       = \App\Models\User::instance()->raw("SELECT * FROM users WHERE id = ?", [$booking->user_id])->fetch(PDO::FETCH_OBJ);
         $biodata    = \App\Models\Biodata::instance()->raw("SELECT * FROM biodatas WHERE user_id = ?", [$user->id])->fetch(PDO::FETCH_OBJ);
         $payment    = null;
+        $promo      = null;
 
         if ($booking) {
             $payment = \App\Models\Payment::instance()->raw("SELECT * FROM payments WHERE booking_id = ?", $booking->id)->fetch(PDO::FETCH_OBJ);
+        }
+
+        if ($booking->promo_id) {
+            $promo = \App\Models\Promo::instance()->raw('SELECT * FROM promos WHERE id = ?', [$booking->promo_id])->fetch(PDO::FETCH_OBJ);
         }
     ?>
 </head>
@@ -61,11 +66,23 @@
                                                     <?php endforeach; ?>
                                                 </ul>
                                                 <h6>Harga Per Malam</h6>
-                                                <p><?= format_currency($room->price); ?></p>
+                                                <p><?= format_currency($room->price - $promo->price); ?></p>
                                             </div>
 
                                             <h3 class="mt-5 d-block col-12">Detail Pemesan</h3>
                                             <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="">Ktp</label>
+                                                    <div style="border: 1px dashed #cccccc; border-radius: 5px;">
+                                                        <img src="<?= asset('uploads/images/identity_cards/' . $booking->identity_card); ?>" alt="" width="100%" height="100%">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="">Pembayaran Dp 10%</label>
+                                                    <div style="border: 1px dashed #cccccc; border-radius: 5px;">
+                                                        <img src="<?= asset('uploads/images/down_payments/' . $booking->down_payment); ?>" alt="" width="100%" height="100%">
+                                                    </div>
+                                                </div>
                                                 <div class="form-group">
                                                     <label for="">Nama</label>
                                                     <input disabled type="text" name="name" class="form-control" value="<?= $booking->name; ?>">

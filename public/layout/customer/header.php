@@ -24,6 +24,8 @@
 
                     if (file_exists("../uploads/images/biodata/profile/" . $biodata->avatar)) {
                         $avatar = "../uploads/images/biodata/profile/" . $biodata->avatar;
+                    } elseif (file_exists("./uploads/images/biodata/profile/" . $biodata->avatar)) {
+                        $avatar = "./uploads/images/biodata/profile/" . $biodata->avatar;
                     }
                 ?>
                 <li class="dropdown">

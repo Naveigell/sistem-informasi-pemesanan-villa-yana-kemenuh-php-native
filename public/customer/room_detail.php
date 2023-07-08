@@ -146,6 +146,15 @@ require_once '../../server.php';
                                                         <input required type="text" name="phone" class="form-control">
                                                     </div>
                                                     <div class="form-group">
+                                                        <label for="">Upload Ktp</label>
+                                                        <input required type="file" name="identity_card" accept="image/png,image/jpg,image/jpeg" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Upload Dp</label>
+                                                        <input required type="file" name="down_payment" accept="image/png,image/jpg,image/jpeg" class="form-control">
+                                                        <small class="text text-muted">Upload dp minimal 10% harga Rp. <?= format_currency($room->price * 0.1); ?>)</small>
+                                                    </div>
+                                                    <div class="form-group">
                                                         <label for="">Catatan <small>(optional)</small></label>
                                                         <textarea name="note" id="" cols="30" rows="10" class="form-control" style="resize: none; min-height: 200px;"></textarea>
                                                     </div>
@@ -183,6 +192,7 @@ require_once '../../server.php';
                         <p>Kamu Dapat Promo</p>
                         <p>Dengan potongan <b><span id="promo-price"></span></b></p>
                         <p id="promo-description"></p>
+                        <p><span class="badge badge-warning">Promo didapatkan saat melakukan full pembayaran</span></p>
                     </div>
                     <div class="modal-footer bg-whitesmoke br">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
