@@ -15,6 +15,11 @@ require_once '../../server.php';
         $booking    = \App\Models\Booking::instance()->raw('SELECT * FROM bookings WHERE id = ?', [$_GET['booking_id']])->fetch(PDO::FETCH_OBJ);
         $room       = \App\Models\Room::instance()->raw('SELECT * FROM rooms WHERE id = ?', [$booking->room_id])->fetch(PDO::FETCH_OBJ);
         $facilities = \App\Models\Facility::instance()->raw("SELECT * FROM facilities WHERE room_id = ?", [$booking->room_id])->fetchAll(PDO::FETCH_OBJ);
+        $promo      = null;
+
+        if ($booking->promo_id) {
+            $promo = \App\Models\Promo::instance()->raw("SELECT * FROM promos WHERE id = ?", [$booking->promo_id])->fetch(PDO::FETCH_OBJ);
+        }
     ?>
 </head>
 
@@ -53,6 +58,18 @@ require_once '../../server.php';
 
                                             <h3 class="mt-5 d-block col-12">Detail Pemesan</h3>
                                             <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="">Ktp</label>
+                                                    <div style="border: 1px dashed #cccccc; border-radius: 5px;">
+                                                        <img src="<?= asset('uploads/images/identity_cards/' . $booking->identity_card); ?>" alt="" width="100%" height="100%">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="">Pembayaran Dp 10%</label>
+                                                    <div style="border: 1px dashed #cccccc; border-radius: 5px;">
+                                                        <img src="<?= asset('uploads/images/down_payments/' . $booking->down_payment); ?>" alt="" width="100%" height="100%">
+                                                    </div>
+                                                </div>
                                                 <div class="form-group">
                                                     <label for="">Nama</label>
                                                     <input disabled type="text" name="name" class="form-control" value="<?= $booking->name; ?>">

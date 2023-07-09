@@ -9,16 +9,15 @@
     <?php require_once "../layout/admin/style.php"; ?>
     <?php
         $complaints = \App\Models\Complaint::instance()->raw("SELECT * FROM complaints")->fetchAll();
+        $bookingIds = join(',', array_column($complaints, 'booking_id'));
 
-        $rooms    = [];
-        $users    = [];
-        $bookings = [];
+        $bookings   = \App\Models\Booking::instance()->raw("SELECT * FROM bookings WHERE bookings.id IN ({$bookingIds})")->fetchAll();
 
-        if (count($complaints) > 0) {
-            $rooms    = \App\Models\Room::instance()->raw("SELECT * FROM rooms WHERE id IN (" . join(', ', array_column($complaints, 'room_id')) . ")")->fetchAll();
-            $users    = \App\Models\User::instance()->raw("SELECT * FROM users WHERE id IN (" . join(', ', array_column($complaints, 'user_id')) . ")")->fetchAll();
-            $bookings = \App\Models\Booking::instance()->raw("SELECT * FROM bookings WHERE id IN (" . join(', ', array_column($complaints, 'booking_id')) . ")")->fetchAll();
-        }
+        $roomIds    = join(',', array_column($bookings, 'room_id'));
+        $rooms      = \App\Models\Room::instance()->raw("SELECT * FROM rooms WHERE rooms.id IN ({$roomIds})")->fetchAll();
+
+        $userIds    = join(',', array_column($bookings, 'user_id'));
+        $users      = \App\Models\User::instance()->raw("SELECT * FROM users WHERE users.id IN ({$userIds})")->fetchAll();
     ?>
 </head>
 
@@ -55,7 +54,6 @@
                                             <th>Nomor Kamar</th>
                                             <th>Nama Pemesan</th>
                                             <th>Tanggal Pemesanan</th>
-                                            <th>Deskripsi</th>
                                             <th>Status</th>
                                             <?php if (\App\Models\User::isAdmin()): ?>
                                                 <th>Aksi</th>
@@ -70,15 +68,16 @@
                                                         return $room['id'] == $complaint['room_id'];
                                                     });
 
-                                                    $user = array_filter($users, function ($user) use ($complaint) {
-                                                        return $user['id'] == $complaint['user_id'];
-                                                    });
-
                                                     $booking = array_filter($bookings, function ($booking) use ($complaint) {
                                                         return $booking['id'] == $complaint['booking_id'];
                                                     });
 
                                                     $booking = reset($booking);
+
+                                                    $user = array_filter($users, function ($user) use ($booking) {
+                                                        return $user['id'] == $booking['user_id'];
+                                                    });
+
                                                     $room    = reset($room);
                                                     $user    = reset($user);
                                                 ?>
@@ -88,7 +87,6 @@
                                                     <td><?= $room['room_number']; ?></td>
                                                     <td><?= $user['name']; ?></td>
                                                     <td><?= date('d F Y', strtotime($booking['start_date'])); ?> - <?= date('d F Y', strtotime($booking['end_date'])); ?></td>
-                                                    <td><?= $complaint['description']; ?></td>
                                                     <td>
                                                         <?php if ($complaint['status'] == \App\Models\Complaint::COMPLAINT_STATUS_NOT_FINISHED): ?>
                                                             <span class="badge badge-light">Sedang di proses</span>
@@ -98,11 +96,7 @@
                                                     </td>
                                                     <?php if (\App\Models\User::isAdmin()): ?>
                                                         <td>
-                                                            <?php if ($complaint['status'] == \App\Models\Complaint::COMPLAINT_STATUS_NOT_FINISHED): ?>
-                                                                <button data-url="<?= route('admin.complaints.update') . '?' . http_build_query(['complaint_id' => $complaint['id']]); ?>" data-toggle="modal" data-target="#complaint-finish-modal" class="btn btn-success btn-accepted"><i class="fa fa-check"></i></button>
-                                                            <?php else: ?>
-                                                                -
-                                                            <?php endif; ?>
+                                                            <a href="<?= route('admin.complaints.show') . '?' . http_build_query(['booking_id' => $booking['id'], 'room_id' => $booking['room_id'], 'complaint_id' => $complaint['id']]); ?>" class="btn btn-primary"><i class="fa fa-envelope"></i></a>
                                                         </td>
                                                     <?php endif; ?>
                                                 </tr>

@@ -171,22 +171,34 @@ times(rand(1, 3), function () {
 });
 
 times(1, function () {
-    $bookings = \App\Models\Booking::instance()->getAll();
-    $rooms    = \App\Models\Room::instance()->getAll();
-    $users    = \App\Models\User::instance()->raw("SELECT * FROM users WHERE role = ?", [\App\Models\User::ROLE_CUSTOMER])->fetchAll(PDO::FETCH_OBJ);
+    $bookings  = \App\Models\Booking::instance()->getAll();
+    $customers = \App\Models\User::instance()->raw("SELECT * FROM users WHERE role = ?", [\App\Models\User::ROLE_CUSTOMER])->fetchAll(PDO::FETCH_OBJ);
+    $staff     = \App\Models\User::instance()->raw("SELECT * FROM users WHERE role = ?", [\App\Models\User::ROLE_STAFF])->fetchAll(PDO::FETCH_OBJ);
 
-    times(30, function () use ($bookings, $rooms, $users) {
-        $types = [\App\Models\Complaint::COMPLAINT_TYPE_CUSTOMER, \App\Models\Complaint::COMPLAINT_TYPE_ADMIN];
-        $descriptions = ['Keran air bocor', 'Wastafel bocor', 'Genteng bocor', 'Kemalingan sepatu'];
-
-        \App\Models\Complaint::instance()->create([
-            "user_id"        => $users[array_rand($users)]->id,
-            "room_id"        => $rooms[array_rand($rooms)]->id,
-            "booking_id"     => $bookings[array_rand($bookings)]->id,
-            "complaint_type" => $types[array_rand($types)],
-            "description"    => $descriptions[array_rand($descriptions)],
-            "status"         => rand(0, 1)
+    times(count($bookings), function ($index) use ($bookings, $customers, $staff) {
+        $complaint = \App\Models\Complaint::instance()->create([
+            "room_id" => $bookings[$index]->room_id,
+            "booking_id" => $bookings[$index]->id,
+            "status" => \App\Models\Booking::STATUS_ACC,
         ]);
+
+        times(rand(1, 3), function () use ($complaint, $customers) {
+            \App\Models\ComplaintDescription::instance()->create([
+                "user_id" => $customers[array_rand($customers)]->id,
+                "complaint_id" => $complaint->id,
+                "image" => rand(0, 1) ? null : str_random(40),
+                "description" => str_random(100),
+            ]);
+        });
+
+        times(rand(1, 2), function () use ($complaint, $staff) {
+            \App\Models\ComplaintDescription::instance()->create([
+                "user_id" => $staff[array_rand($staff)]->id,
+                "complaint_id" => $complaint->id,
+                "image" => rand(0, 1) ? null : str_random(40),
+                "description" => str_random(100),
+            ]);
+        });
     });
 });
 

@@ -14,13 +14,19 @@ require_once '../../server.php';
     <?php
         $bookings = \App\Models\Booking::instance()->raw('SELECT * FROM bookings WHERE user_id = ? ORDER BY id DESC', [\Lib\Session\Session::get('user')['id']])->fetchAll();
 
-        $rooms = $payments = $roomImages = [];
+        $rooms = $payments = $roomImages = $complaints = [];
 
         if (count($bookings) > 0) {
             $rooms    = \App\Models\Room::instance()->raw("SELECT * FROM rooms WHERE id IN (" . join(', ', array_column($bookings, 'room_id')) . ")")->fetchAll();
             $payments = \App\Models\Payment::instance()->raw("SELECT * FROM payments WHERE booking_id IN (" . join(', ', array_column($bookings, 'id')) . ")")->fetchAll();
 
             $roomImages = \App\Models\RoomImage::instance()->raw("SELECT * FROM room_images WHERE room_id IN (" . join(', ', array_column($rooms, 'id')) . ")")->fetchAll();
+        }
+
+        $bookingIds = array_column($bookings, 'id');
+
+        if (count($bookingIds) > 0) {
+            $complaints = \App\Models\Complaint::instance()->raw("SELECT * FROM complaints WHERE booking_id IN (" . join(', ', $bookingIds) . ")")->fetchAll();
         }
 
     ?>
@@ -68,8 +74,13 @@ require_once '../../server.php';
                                                         return $payment['booking_id'] == $booking['id'];
                                                     });
 
+                                                    $complaint = array_filter($complaints, function ($complaint) use ($booking) {
+                                                        return $complaint['booking_id'] == $booking['id'];
+                                                    });
+
                                                     $payment = reset($payment);
                                                     $room = reset($room);
+                                                    $complaint = reset($complaint);
 
                                                     $image = array_filter($roomImages, function ($image) use ($room) {
                                                         return $image['room_id'] == $room['id'];
@@ -115,7 +126,7 @@ require_once '../../server.php';
                                                         <a href="<?= route('customers.orders.show') . '?' . http_build_query(['booking_id' => $booking['id'], 'room_id' => $booking['room_id']]); ?>" class="btn btn-warning"><i class="fa fa-eye"></i></a>
 
                                                         <?php if ($booking['status'] == \App\Models\Booking::STATUS_ACC): ?>
-                                                            <a href="<?= route('customers.orders.complaints.index') . '?' . http_build_query(['booking_id' => $booking['id'], 'room_id' => $booking['room_id']]); ?>" class="btn btn-primary"><i class="fa fa-envelope"></i></a>
+                                                            <a href="<?= route('customers.orders.complaints.index') . '?' . http_build_query(['booking_id' => $booking['id'], 'room_id' => $booking['room_id'], 'complaint_id' => $complaint['id']]); ?>" class="btn btn-primary"><i class="fa fa-envelope"></i></a>
                                                         <?php endif; ?>
 
                                                         <?php if ($booking['status'] == \App\Models\Booking::STATUS_NOT_ACC): ?>

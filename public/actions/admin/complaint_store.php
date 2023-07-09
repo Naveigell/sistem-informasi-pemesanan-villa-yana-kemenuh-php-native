@@ -29,4 +29,4 @@ if ($description || $image['tmp_name']) {
     ]);
 }
 
-redirect($routes['customers.orders.complaints.index'] . '?' . http_build_query(['booking_id' => $bookingId, 'room_id' => $roomId, 'complaint_id' => $complaintId]));
+redirect($routes['admin.complaints.show']  . '?' . http_build_query(['booking_id' => $bookingId, 'room_id' => $roomId, 'complaint_id' => $complaintId]));

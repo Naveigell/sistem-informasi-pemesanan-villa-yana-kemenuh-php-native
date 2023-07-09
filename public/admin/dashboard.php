@@ -7,6 +7,11 @@
 
     <?php require_once '../../server.php'; ?>
     <?php require_once "../layout/admin/style.php"; ?>
+    <?php
+        $staffCount     = \App\Models\User::instance()->raw("SELECT * FROM users WHERE role = '" . \App\Models\User::ROLE_STAFF . "'")->rowCount();
+        $bookingCount   = \App\Models\Booking::instance()->raw("SELECT * FROM bookings WHERE status = '" . \App\Models\Booking::STATUS_ACC . "'")->rowCount();
+        $complaintCount = \App\Models\Complaint::instance()->raw("SELECT * FROM complaints")->rowCount();
+    ?>
 </head>
 
 <body>
@@ -24,7 +29,53 @@
                 </div>
 
                 <div class="section-body">
-
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                            <div class="card card-statistic-1">
+                                <div class="card-icon bg-primary">
+                                    <i class="far fa-user"></i>
+                                </div>
+                                <div class="card-wrap">
+                                    <div class="card-header">
+                                        <h4>Total Staff</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <?= $staffCount; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                            <div class="card card-statistic-1">
+                                <div class="card-icon bg-danger">
+                                    <i class="far fa-newspaper"></i>
+                                </div>
+                                <div class="card-wrap">
+                                    <div class="card-header">
+                                        <h4>Total Booking (Diterima)</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <?= $bookingCount; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                            <div class="card card-statistic-1">
+                                <div class="card-icon bg-warning">
+                                    <i class="far fa-envelope"></i>
+                                </div>
+                                <div class="card-wrap">
+                                    <div class="card-header">
+                                        <h4>Total Komplain</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <?= number_format($complaintCount); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>

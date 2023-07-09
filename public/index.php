@@ -4,6 +4,7 @@ require_once '../server.php';
 
 $rooms = \App\Models\Room::instance()->with('image')->getAll();
 $testimonials = \App\Models\Testimonial::instance()->getAll();
+$promos = \App\Models\Promo::instance()->getAll();
 
 ?>
 <!DOCTYPE html>
@@ -108,7 +109,14 @@ $testimonials = \App\Models\Testimonial::instance()->getAll();
 <!--                            </li>-->
                         <?php endforeach; ?>
                     </ul>
-                    <h2 class="section-title mt-5">Kamar</h2>
+                    <div class="mt-4">
+                        <?php foreach ($promos as $promo): ?>
+                            <div class="alert alert-warning mb-2">
+                                <i class="fa fa-certificate"></i> Promo <b><?= $promo->title; ?></b> akan berlangsung pada tanggal <b><?= \Carbon\Carbon::parse($promo->start_date)->translatedFormat('d F Y'); ?></b> hingga tanggal <b><?= \Carbon\Carbon::parse($promo->end_date)->translatedFormat('d F Y'); ?></b>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <h2 class="section-title mt-4">Kamar</h2>
                     <div class="row">
                         <?php foreach ($rooms as $room): ?>
                             <div class="col-12 col-sm-6 col-md-6 col-lg-3">

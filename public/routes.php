@@ -68,6 +68,7 @@ return [
 
     "admin.complaints.index" => "admin/complaint.php",
     "admin.complaints.show" => "admin/complaint_form.php",
+    "admin.complaints.store" => "actions/admin/complaint_store.php",
     "admin.complaints.update" => "actions/admin/complaint_update.php",
 
     "admin.reports.incomes.index" => "admin/reports/income.php",

@@ -146,7 +146,7 @@ require_once '../../server.php';
                                                         <input required type="text" name="phone" class="form-control">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="">Upload Ktp</label>
+                                                        <label for="">Upload Ktp/Paspor</label>
                                                         <input required type="file" name="identity_card" accept="image/png,image/jpg,image/jpeg" class="form-control">
                                                     </div>
                                                     <div class="form-group">
