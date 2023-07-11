@@ -55,9 +55,7 @@
                                             <th>Nama Pemesan</th>
                                             <th>Tanggal Pemesanan</th>
                                             <th>Status</th>
-                                            <?php if (\App\Models\User::isAdmin()): ?>
-                                                <th>Aksi</th>
-                                            <?php endif; ?>
+                                            <th>Aksi</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -94,11 +92,9 @@
                                                             <span class="badge badge-success">Selesai</span>
                                                         <?php endif; ?>
                                                     </td>
-                                                    <?php if (\App\Models\User::isAdmin()): ?>
-                                                        <td>
-                                                            <a href="<?= route('admin.complaints.show') . '?' . http_build_query(['booking_id' => $booking['id'], 'room_id' => $booking['room_id'], 'complaint_id' => $complaint['id']]); ?>" class="btn btn-primary"><i class="fa fa-envelope"></i></a>
-                                                        </td>
-                                                    <?php endif; ?>
+                                                    <td>
+                                                        <a href="<?= route('admin.complaints.show') . '?' . http_build_query(['booking_id' => $booking['id'], 'room_id' => $booking['room_id'], 'complaint_id' => $complaint['id']]); ?>" class="btn btn-primary"><i class="fa fa-envelope"></i></a>
+                                                    </td>
                                                 </tr>
                                             <?php endforeach; ?>
                                         </tbody>
