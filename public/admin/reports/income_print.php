@@ -23,6 +23,13 @@ if ($bookings) {
 
 ?>
 
+<h2 class="text-center my-4">
+    Laporan Pendapatan Villa Yana Kemenuh
+    <?php if (array_key_exists('start_date', $_GET) && array_key_exists('end_date', $_GET)): ?>
+        Periode <?= date('d F Y', strtotime($_GET['start_date'])); ?> - <?= date('d F Y', strtotime($_GET['end_date'])); ?>
+    <?php endif; ?>
+</h2>
+
 <table class="table table-bordered table-md" id="table-1">
     <thead>
     <tr>

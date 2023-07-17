@@ -10,6 +10,7 @@ create table if not exists bookings (
     address VARCHAR(255) NOT NULL,
     start_date DATETIME NOT NULL,
     end_date DATETIME NOT NULL,
+    total_day INT UNSIGNED NOT NULL,
     status TINYINT UNSIGNED NOT NULL DEFAULT 0, -- 0 means not acc, 1 means acc, 2 means canceled
     note TEXT NULL,
     down_payment VARCHAR(255) NOT NULL,

@@ -126,8 +126,9 @@ times(1, function () {
 
         times(rand(3, 5), function () use ($index, $roomIds, $userIds, $users, $biodatas) {
 
+            $day = rand(1, 6);
             $startDate = strtotime(date('Y-m-d'));
-            $endDate   = date("Y-m-d", strtotime("+" . rand(1, 6) . " day", $startDate));
+            $endDate   = date("Y-m-d", strtotime("+" . $day . " day", $startDate));
 
             $booking = \App\Models\Booking::instance()->create([
                 "room_id"       => $roomIds[$index],
@@ -139,6 +140,7 @@ times(1, function () {
                 "address"       => $biodatas[array_rand($biodatas)]['address'],
                 "start_date"    => date('Y-m-d', $startDate),
                 "end_date"      => $endDate,
+                "total_day"     => $day + 1,
                 "status"        => rand(0, 1),
                 "down_payment"  => str_random(30),
                 "created_at"    => date('Y-m-d'),
@@ -161,10 +163,15 @@ times(rand(1, 3), function () {
     $startDate = \Carbon\Carbon::parse(date('Y-m-d'))->addDays(rand(10, 13))->toDateString();
     $endDate   = \Carbon\Carbon::parse($startDate)->addDays(rand(10, 15))->toDateString();
 
+    $promos = [\App\Models\Promo::PROMO_TYPE_DISCOUNT, \App\Models\Promo::PROMO_TYPE_INCLUDE];
+    $rand = array_rand($promos);
+    $type = $promos[$rand];
+
     \App\Models\Promo::instance()->create([
         "title" => str_random(),
         "description" => "Phasellus massa dui, imperdiet eu aliquet finibus, mollis ac nisi. Duis sagittis vulputate massa vel congue. Aenean commodo, eros quis viverra pulvinar, urna odio hendrerit tortor, vitae tristique lectus arcu quis erat. Nullam blandit neque velit, ac lacinia ligula vehicula sed. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam ipsum lorem, rutrum in lobortis eget, bibendum luctus ligula. Donec lobortis, augue vel sodales pretium, elit neque dignissim nibh, eget euismod est nibh in magna. Suspendisse potenti. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum iaculis neque ac diam varius pretium. Mauris non ligula condimentum, pharetra diam sit amet, sodales nisl. Ut sed vulputate velit. Vestibulum viverra rutrum pellentesque.",
-        "price" => (10 ** 3) * rand(2, 5),
+        "type" => $type,
+        "price" => $type == \App\Models\Promo::PROMO_TYPE_DISCOUNT ? (10 ** 3) * rand(2, 5) : 0,
         "start_date" => $startDate,
         "end_date" => $endDate,
     ]);

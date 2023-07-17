@@ -12,6 +12,8 @@ $startDate = $_POST['start_date'];
 $endDate   = $_POST['end_date'];
 $note      = $_POST['note'];
 
+$totalDay  = \Carbon\Carbon::parse($startDate)->diffInDays(\Carbon\Carbon::parse($endDate)) + 1;
+
 $identityCard = $_FILES['identity_card'];
 $downPayment  = $_FILES['down_payment'];
 
@@ -40,6 +42,7 @@ if ($downPayment['name']) {
 $booking = \App\Models\Booking::instance()->create([
     "start_date"    => $startDate,
     "end_date"      => $endDate,
+    "total_day"     => $totalDay,
     "room_id"       => $roomId,
     "promo_id"      => $promoId,
     "user_id"       => \Lib\Session\Session::get('user')['id'],

@@ -17,7 +17,7 @@
 </style>
 
 <script>
-    function createCountDown(time, target) {
+    function createCountDown(time, target, callback) {
         // Set the date we're counting down to
         var countDownDate = new Date(time).getTime();
 
@@ -44,6 +44,10 @@
             if (distance < 0) {
                 clearInterval(x);
                 target.innerHTML = "EXPIRED";
+
+                callback(true);
+            } else {
+                callback(false);
             }
         }, 1000);
     }

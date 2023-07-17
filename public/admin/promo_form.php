@@ -15,6 +15,11 @@
         if (array_key_exists("id", $_GET)) {
             $promo = \App\Models\Promo::instance()->raw("SELECT * FROM promos WHERE id = ?", [$_GET['id']])->fetch();
         }
+
+        $types = [
+            \App\Models\Promo::PROMO_TYPE_DISCOUNT => 'Diskon',
+            \App\Models\Promo::PROMO_TYPE_INCLUDE => 'Include',
+        ];
     ?>
 
 </head>
@@ -57,16 +62,25 @@
                                         <input required type="text" name="title" value="<?= $promo['title']; ?>" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputAddress">deskripsi</label>
-                                        <textarea required name="description" id="" cols="30" rows="50" class="form-control" style="height: 200px !important; resize: none;"><?= $promo['description']; ?></textarea>
+                                        <label for="inputAddress">Deskripsi</label>
+                                        <textarea name="description" id="" cols="30" rows="50" class="form-control editor" style="height: 200px !important; resize: none;"><?= $promo['description']; ?></textarea>
                                     </div>
                                     <div class="form-group">
+                                        <label for="inputAddress">Tipe</label>
+                                        <select required name="type" id="type" class="form-control">
+                                            <option value="">-- Nothing Selected --</option>
+                                            <?php foreach ($types as $key => $type): ?>
+                                                <option <?php if ($key == $promo['type']): ?> selected <?php endif; ?> <?php if ($key == \App\Models\Promo::PROMO_TYPE_INCLUDE): ?> data-include="true" <?php endif; ?> value="<?= $key; ?>"><?= $type; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" id="price-container">
                                         <label for="inputAddress">Potongan Harga</label>
                                         <div class="input-group mb-2">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">Rp.</div>
                                             </div>
-                                            <input required type="text" name="price" value="<?= (int) $promo['price']; ?>" class="form-control nominal">
+                                            <input id="price" required type="text" name="price" value="<?= (int) $promo['price']; ?>" class="form-control nominal">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -94,5 +108,24 @@
 </div>
 
 <?php require_once '../layout/admin/script.php'; ?>
+<script>
+    $(document).ready(function () {
+        $("#type").change(function (event) {
+            var included = $(this).find('option:selected').data('include');
+
+            if (included) {
+                $('#price-container').hide();
+                $('#price').val(0);
+            } else {
+                $('#price-container').show();
+            }
+        });
+    });
+</script>
+<?php if ($promo['type'] == \App\Models\Promo::PROMO_TYPE_INCLUDE): ?>
+    <script>
+        $('#price-container').hide();
+    </script>
+<?php endif; ?>
 </body>
 </html>

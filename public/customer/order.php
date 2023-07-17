@@ -107,17 +107,24 @@ require_once '../../server.php';
                                                             <span class="badge badge-dark">Belum dibayar</span>
 
                                                             <?php
-                                                                $date = date_create($booking['created_at']);
-                                                                $date = date_add($date, date_interval_create_from_date_string('2 days'));
+                                                                $date = \Carbon\Carbon::parse($booking['created_at'])->addDays(2);
                                                             ?>
 
-                                                            <input type="hidden" id="time-<?= $booking["id"]; ?>" value="<?= date('Y-m-d', $date->getTimestamp()); ?>">
+                                                            <input type="hidden" id="time-<?= $booking["id"]; ?>" value="<?= $date->format('Y-m-d H:i'); ?>">
 
-                                                            <small class="text text-danger mb-2 d-inline-block">* Bayar sebelum <?= date('d F Y', $date->getTimestamp()) ?></small>
+                                                            <small class="text text-danger mb-2 d-inline-block">* Bayar sebelum <?= $date->format('d F Y, H:i') ?></small>
 
-                                                            <p class="badge badge-danger" id="countdown-<?= $booking['id']; ?>"></p>
+                                                            <p class="badge badge-danger d-block" id="countdown-<?= $booking['id']; ?>"></p>
                                                             <script>
-                                                                createCountDown(document.getElementById('time-<?= $booking["id"]; ?>').value, document.getElementById('countdown-<?= $booking["id"]; ?>'));
+                                                                createCountDown(document.getElementById('time-<?= $booking["id"]; ?>').value, document.getElementById('countdown-<?= $booking["id"]; ?>'), function (expired) {
+                                                                    var paymentButton = document.getElementById('payment-button-<?= $booking["id"]; ?>');
+
+                                                                    if (paymentButton !== null && expired) {
+                                                                        paymentButton.style.display = 'none';
+                                                                    } else if (paymentButton !== null && !expired) {
+                                                                        paymentButton.style.display = 'inline-block';
+                                                                    }
+                                                                });
                                                             </script>
 
                                                         <?php endif; ?>
@@ -134,7 +141,7 @@ require_once '../../server.php';
                                                         <?php endif; ?>
 
                                                         <?php if (!$payment): ?>
-                                                            <a href="<?= route('rooms.payment.detail') . '?' . http_build_query(['booking_id' => $booking['id'], 'room_id' => $booking['room_id']]); ?>" class="btn btn-dark"><i class="fa fa-upload"></i></a>
+                                                            <a target="_blank" style="display: none;" id="payment-button-<?= $booking['id']; ?>" href="<?= route('rooms.payment.detail') . '?' . http_build_query(['booking_id' => $booking['id'], 'room_id' => $booking['room_id']]); ?>" class="btn btn-dark"><i class="fa fa-upload"></i></a>
                                                         <?php endif; ?>
                                                     </td>
                                                 </tr>

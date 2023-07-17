@@ -10,7 +10,11 @@
 <!-- Template CSS -->
 <link rel="stylesheet" href="../../assets/css/style.css">
 <link rel="stylesheet" href="../../assets/css/components.css">
-
+<style>
+    .ck-editor__editable_inline {
+        min-height: 250px;
+    }
+</style>
 <style>
     .main-content {
         padding-top: 100px !important;

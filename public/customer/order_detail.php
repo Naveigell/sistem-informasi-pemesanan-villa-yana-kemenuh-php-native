@@ -54,6 +54,19 @@ require_once '../../server.php';
                                                 </ul>
                                                 <h6>Harga Per Malam</h6>
                                                 <p><?= format_currency($room->price); ?></p>
+                                                <h6>Sewa dari tanggal : </h6>
+                                                <p><?= \Carbon\Carbon::parse($booking->start_date)->format('d F Y'); ?> &nbsp; s/d. &nbsp; <?= \Carbon\Carbon::parse($booking->end_date)->format('d F Y'); ?> (<?= $booking->total_day; ?> hari)</p>
+                                                <?php if ($promo && $promo->type == \App\Models\Promo::PROMO_TYPE_DISCOUNT): ?>
+                                                    <p>Promo: <?= format_currency($promo->price); ?></p>
+                                                    <p>Total: <small><strike><?= format_currency(($room->price * $booking->total_day) - ($room->price * 0.1)); ?></strike></small>&nbsp;<?= format_currency(max(0, (($room->price * $booking->total_day) - ($room->price * 0.1)) - $promo->price)); ?> (<?= $booking->total_day; ?> hari)</p>
+                                                <?php elseif ($promo && $promo->type == \App\Models\Promo::PROMO_TYPE_INCLUDE): ?>
+                                                    <h6>Total</h6>
+                                                    <p><?= format_currency($room->price * $booking->total_day); ?> (<?= $booking->total_day; ?> hari)</p>
+                                                    <button data-toggle="modal" data-target="#promo-modal" type="button" class="btn btn-warning" id="button-promo"><i class="fa fa-certificate"></i> Cek Deskripsi Promo</button>
+                                                <?php else: ?>
+                                                    <h6>Total</h6>
+                                                    <p><?= format_currency($room->price * $booking->total_day); ?> (<?= $booking->total_day; ?> hari)</p>
+                                                <?php endif; ?>
                                             </div>
 
                                             <h3 class="mt-5 d-block col-12">Detail Pemesan</h3>
@@ -109,6 +122,32 @@ require_once '../../server.php';
 </div>
 
 <?php require_once '../layout/customer/script.php'; ?>
+
+<?php if ($promo): ?>
+    <div class="modal fade" tabindex="-1" role="dialog" id="promo-modal" style="display: none;" aria-hidden="true" >
+        <div class="modal-dialog" role="document">
+            <form class="modal-content" method="post" action="">
+                <div class="modal-header">
+                    <h5 class="modal-title">Promo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Kamu Dapat Promo</p>
+                    <?php if ($promo->type == \App\Models\Promo::PROMO_TYPE_DISCOUNT): ?>
+                        <p id="promo-price-wrapper">Dengan potongan <b><span id="promo-price"><?= $promo->price; ?></span></b></p>
+                    <?php endif; ?>
+                    <p id="promo-description"><?= $promo->description; ?></p>
+                    <p><span class="badge badge-warning">Promo didapatkan saat melakukan full pembayaran</span></p>
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                </div>
+            </form>
+        </div>
+    </div>
+<?php endif; ?>
 </body>
 </html>
 

@@ -38,3 +38,18 @@
         removeMaskOnSubmit: true,
     });
 </script>
+
+<script src="https://cdn.ckeditor.com/ckeditor5/38.1.1/classic/ckeditor.js"></script>
+<script>
+    var editors = document.getElementsByClassName("editor");
+
+    for (var editor of editors) {
+        ClassicEditor
+            .create(editor, {
+                toolbar: [ 'bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote' , 'link' ]
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+</script>

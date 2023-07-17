@@ -23,6 +23,7 @@ require_once '../../server.php';
         $isBooked = false;
 
         $promos = \App\Models\Promo::instance()->getAllToArray();
+        $totalDay = 0;
 
         // create price formatted in every promo
         foreach ($promos as $index => $promo) {
@@ -33,6 +34,7 @@ require_once '../../server.php';
             $booking = \App\Models\Booking::instance()->raw("SELECT * FROM bookings WHERE room_id = ? AND DATE(start_date) >= ? AND DATE(end_date) <= ?", [$roomId, $from, $to])->fetch(PDO::FETCH_OBJ);
 
             $isBooked = $booking != false; // if booking not false
+            $totalDay = \Carbon\Carbon::parse($from)->diffInDays(\Carbon\Carbon::parse($to)) + 1;
         }
     ?>
 </head>
@@ -89,6 +91,10 @@ require_once '../../server.php';
                                             </ul>
                                             <h6>Harga Per Malam</h6>
                                             <p><?= format_currency($room->price); ?></p>
+                                            <?php if ($from && $to): ?>
+                                            <h6>Total</h6>
+                                            <p><?= format_currency($room->price * $totalDay); ?> (<?= $totalDay; ?> hari)</p>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                     <div class="" style="padding-top: 0px !important;">
@@ -152,7 +158,10 @@ require_once '../../server.php';
                                                     <div class="form-group">
                                                         <label for="">Upload Dp</label>
                                                         <input required type="file" name="down_payment" accept="image/png,image/jpg,image/jpeg" class="form-control">
-                                                        <small class="text text-muted">Upload dp minimal 10% harga Rp. <?= format_currency($room->price * 0.1); ?>)</small>
+                                                        <small class="text text-muted d-block">Upload dp minimal 10% harga Rp. <?= format_currency($room->price * 0.1); ?>)</small>
+                                                        <?php if ($from && $to): ?>
+                                                            <small class="text text-muted">Total: <?= format_currency($room->price * $totalDay); ?> (<?= $totalDay; ?> hari)</small>
+                                                        <?php endif; ?>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="">Catatan <small>(optional)</small></label>
@@ -190,7 +199,7 @@ require_once '../../server.php';
                     </div>
                     <div class="modal-body">
                         <p>Kamu Dapat Promo</p>
-                        <p>Dengan potongan <b><span id="promo-price"></span></b></p>
+                        <p id="promo-price-wrapper">Dengan potongan <b><span id="promo-price"></span></b></p>
                         <p id="promo-description"></p>
                         <p><span class="badge badge-warning">Promo didapatkan saat melakukan full pembayaran</span></p>
                     </div>
@@ -200,6 +209,8 @@ require_once '../../server.php';
                 </form>
             </div>
         </div>
+
+        <input type="hidden" id="promo-type-include" value="<?= \App\Models\Promo::PROMO_TYPE_INCLUDE; ?>">
 
         <script>
             var dateElement = document.getElementById('all-dates').value;
@@ -216,12 +227,18 @@ require_once '../../server.php';
                     var from = moment(document.getElementById('from').value);
                     var to = moment(document.getElementById('to').value);
 
-                    if (from.isBetween(startDate, endDate) || to.isBetween(startDate, endDate)) {
+                    if (from.isBetween(startDate, endDate, null, '[]') || to.isBetween(startDate, endDate, null, '[]')) {
                         document.getElementById('promo-id').value = date.id;
                         document.getElementById('promo-description').innerHTML = date.description;
 
                         document.getElementById('alert-promo').style.display = 'block';
                         document.getElementById('button-promo').style.display = 'inline-block';
+
+                        if (date.type === document.getElementById('promo-type-include').value) {
+                            document.getElementById('promo-price-wrapper').style.display = 'none';
+                        } else {
+                            document.getElementById('promo-price-wrapper').style.display = 'block';
+                        }
 
                         document.getElementById('promo-price').innerHTML = date.price_formatted;
                     }

@@ -23,7 +23,7 @@ class Booking extends Model
 
     protected $table = 'bookings';
 
-    protected $fillable = ['room_id', 'user_id', 'promo_id', 'identity_card', 'name', 'email', 'phone', 'address', 'start_date', 'end_date', 'status', 'note', 'created_at'];
+    protected $fillable = ['room_id', 'user_id', 'promo_id', 'identity_card', 'name', 'email', 'phone', 'address', 'start_date', 'end_date', 'total_day', 'status', 'note', 'created_at'];
 
     public function getStatusByNumber($status)
     {

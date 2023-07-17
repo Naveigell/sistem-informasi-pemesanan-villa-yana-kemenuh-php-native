@@ -12,6 +12,8 @@
         $complaint = \App\Models\Complaint::instance()->raw("SELECT * FROM complaints WHERE id = ?", [$_GET['complaint_id']])->fetch();
         $complaintDescriptions = [];
 
+        \App\Models\Complaint::instance()->raw("UPDATE complaints SET is_read = 1 WHERE id = ?", [$_GET['complaint_id']])->fetch();
+
         if ($complaint) {
             $complaintDescriptions = \App\Models\ComplaintDescription::instance()->raw("SELECT * FROM complaint_descriptions WHERE complaint_id = ?", [$complaint['id']])->fetchAll();
         }
@@ -21,9 +23,13 @@
         }, $complaintDescriptions);
 
         $userIds = array_unique($userIds);
-        $userIds = join(',', $userIds);
 
-        $users = \App\Models\User::instance()->raw("SELECT * FROM users WHERE id IN ({$userIds})")->fetchAll();
+        $users = [];
+
+        if (count($userIds) > 0) {
+            $userIds = join(',', $userIds);
+            $users = \App\Models\User::instance()->raw("SELECT * FROM users WHERE users.id IN ({$userIds})")->fetchAll();
+        }
     ?>
 </head>
 

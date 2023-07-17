@@ -54,6 +54,7 @@
                                                         <th>Judul</th>
                                                         <th>Deskripsi</th>
                                                         <th>Potongan</th>
+                                                        <th>Tipe</th>
                                                         <th>Dari Tanggal</th>
                                                         <th>Sampai Tanggal</th>
                                                         <th>Aksi</th>
@@ -65,7 +66,14 @@
                                                                 <td><?= $index + 1; ?></td>
                                                                 <td><?= $promo->title; ?></td>
                                                                 <td><?= $promo->description; ?></td>
-                                                                <td>Rp. <?= number_format($promo->price, 0, ',', '.'); ?></td>
+                                                                <td>
+                                                                    <?php if ($promo->type == \App\Models\Promo::PROMO_TYPE_DISCOUNT): ?>
+                                                                        Rp. <?= number_format($promo->price, 0, ',', '.'); ?>
+                                                                    <?php else: ?>
+                                                                        -
+                                                                    <?php endif; ?>
+                                                                </td>
+                                                                <td><?= $promo->getTypeFormatted(); ?></td>
                                                                 <td><?= \Carbon\Carbon::parse($promo->start_date)->translatedFormat('d F Y'); ?></td>
                                                                 <td><?= \Carbon\Carbon::parse($promo->end_date)->translatedFormat('d F Y'); ?></td>
                                                                 <td>

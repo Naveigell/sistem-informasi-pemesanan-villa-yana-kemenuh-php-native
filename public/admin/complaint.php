@@ -8,16 +8,22 @@
     <?php require_once '../../server.php'; ?>
     <?php require_once "../layout/admin/style.php"; ?>
     <?php
-        $complaints = \App\Models\Complaint::instance()->raw("SELECT * FROM complaints")->fetchAll();
-        $bookingIds = join(',', array_column($complaints, 'booking_id'));
+        $complaints = \App\Models\Complaint::instance()->raw("SELECT * FROM complaints WHERE EXISTS(SELECT * FROM complaint_descriptions WHERE complaints.id = complaint_descriptions.complaint_id) ORDER BY created_at DESC")->fetchAll();
+        $bookingIds = array_column($complaints, 'booking_id');
 
-        $bookings   = \App\Models\Booking::instance()->raw("SELECT * FROM bookings WHERE bookings.id IN ({$bookingIds})")->fetchAll();
+        $bookings = $rooms = $users = [];
 
-        $roomIds    = join(',', array_column($bookings, 'room_id'));
-        $rooms      = \App\Models\Room::instance()->raw("SELECT * FROM rooms WHERE rooms.id IN ({$roomIds})")->fetchAll();
+        if (count($bookingIds) > 0) {
+            $bookingIds = join(',', $bookingIds);
 
-        $userIds    = join(',', array_column($bookings, 'user_id'));
-        $users      = \App\Models\User::instance()->raw("SELECT * FROM users WHERE users.id IN ({$userIds})")->fetchAll();
+            $bookings = \App\Models\Booking::instance()->raw("SELECT * FROM bookings WHERE bookings.id IN ({$bookingIds})")->fetchAll();
+
+            $roomIds = join(',', array_column($bookings, 'room_id'));
+            $rooms = \App\Models\Room::instance()->raw("SELECT * FROM rooms WHERE rooms.id IN ({$roomIds})")->fetchAll();
+
+            $userIds = join(',', array_column($bookings, 'user_id'));
+            $users = \App\Models\User::instance()->raw("SELECT * FROM users WHERE users.id IN ({$userIds})")->fetchAll();
+        }
     ?>
 </head>
 

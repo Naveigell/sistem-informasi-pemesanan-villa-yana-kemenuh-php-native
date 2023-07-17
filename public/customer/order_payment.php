@@ -57,11 +57,13 @@ require_once '../../server.php';
                                                 <?php endforeach; ?>
                                             </ul>
                                             <h6>Harga Per Malam</h6>
-                                            <?php if ($promo): ?>
+                                            <p><?= format_currency($room->price); ?></p>
+                                            <?php if ($promo && $promo->type == \App\Models\Promo::PROMO_TYPE_DISCOUNT): ?>
                                                 <p>Promo: <?= format_currency($promo->price); ?></p>
-                                                <p><small><strike><?= format_currency($room->price - ($room->price * 0.1)); ?></strike></small>&nbsp;<?= format_currency(max(0, ($room->price - ($room->price * 0.1)) - $promo->price)); ?></p>
+                                                <p>Total: <small><strike><?= format_currency(($room->price * $booking['total_day']) - ($room->price * 0.1)); ?></strike></small>&nbsp;<?= format_currency(max(0, (($room->price * $booking['total_day']) - ($room->price * 0.1)) - $promo->price)); ?> (<?= $booking['total_day']; ?> hari)</p>
+                                                <p class="text-small text-muted"><?= format_currency(($room->price * 0.1)); ?> sudah dibayar di awal.</p>
                                             <?php else: ?>
-                                                <p><?= format_currency($room->price - ($room->price * 0.1)); ?></p>
+                                                <p>Total: <?= format_currency(($room->price * $booking['total_day']) - ($room->price * 0.1)); ?> (<?= $booking['total_day']; ?> hari)</p>
                                             <?php endif; ?>
                                         </div>
                                     </div>
@@ -79,11 +81,10 @@ require_once '../../server.php';
                                                 </div>
                                                 <h6 class="text text-success">Form Pembayaran</h6>
                                                 <?php
-                                                    $date = date_create($booking['created_at']);
-                                                    $date = date_add($date, date_interval_create_from_date_string('2 days'));
+                                                    $date = \Carbon\Carbon::parse($booking['created_at'])->addDays(2);
                                                 ?>
 
-                                                <input type="hidden" id="time" value="<?= date('Y-m-d', $date->getTimestamp()); ?>">
+                                                <input type="hidden" id="time" value="<?= $date->format('Y-m-d H:i'); ?>">
                                                 <div class="alert alert-danger">
                                                     Bayar sebelum : <span id="countdown-<?= $booking['id']; ?>"></span>
                                                 </div>
