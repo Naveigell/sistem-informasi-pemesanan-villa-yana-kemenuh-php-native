@@ -53,7 +53,7 @@ $booking = \App\Models\Booking::instance()->create([
     "phone"         => $phone,
     "address"       => $address,
     "note"          => $note,
-    "created_at"    => date('Y-m-d'),
+    "created_at"    => date('Y-m-d H:i:s'),
 ]);
 
 try {

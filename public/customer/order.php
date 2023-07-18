@@ -108,6 +108,7 @@ require_once '../../server.php';
 
                                                             <?php
                                                                 $date = \Carbon\Carbon::parse($booking['created_at'])->addDays(2);
+                                                                $date->setTimezone('Asia/Makassar');
                                                             ?>
 
                                                             <input type="hidden" id="time-<?= $booking["id"]; ?>" value="<?= $date->format('Y-m-d H:i'); ?>">

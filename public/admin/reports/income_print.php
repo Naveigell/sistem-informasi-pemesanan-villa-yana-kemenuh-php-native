@@ -23,6 +23,20 @@ if ($bookings) {
 
 ?>
 
+<div class="d-flex justify-content-around ml-2">
+    <div style="background: red">
+        <img src="../../assets/img/logo.jpeg" alt="" style="width: 200px; height: 200px;">
+    </div>
+    <div class="d-flex align-items-center flex-grow-1 ml-3">
+        <span style="font-size: 24px;">
+            <span>Alamat: Jl. Ir. Sutami, Kemenuh, Kec. Sukawati, Kabupaten Gianyar, Bali 80582</span> <br>
+            <span>Telepon: (+62) 887 315 4257</span>
+        </span>
+    </div>
+</div>
+
+<hr>
+
 <h2 class="text-center my-4">
     Laporan Pendapatan Villa Yana Kemenuh
     <?php if (array_key_exists('start_date', $_GET) && array_key_exists('end_date', $_GET)): ?>

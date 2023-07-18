@@ -82,6 +82,7 @@ require_once '../../server.php';
                                                 <h6 class="text text-success">Form Pembayaran</h6>
                                                 <?php
                                                     $date = \Carbon\Carbon::parse($booking['created_at'])->addDays(2);
+                                                    $date->setTimezone('Asia/Makassar');
                                                 ?>
 
                                                 <input type="hidden" id="time" value="<?= $date->format('Y-m-d H:i'); ?>">
@@ -89,17 +90,27 @@ require_once '../../server.php';
                                                     Bayar sebelum : <span id="countdown-<?= $booking['id']; ?>"></span>
                                                 </div>
                                                 <script>
-                                                    createCountDown(document.getElementById('time').value, document.getElementById('countdown-<?= $booking["id"]; ?>'));
-                                                </script>
-                                                <div class="form-group">
-                                                    <label for="">Bukti Pembayaran</label>
-                                                    <input type="hidden" name="room_id" value="<?= $_GET['room_id']; ?>">
-                                                    <input type="hidden" name="booking_id" value="<?= $_GET['booking_id']; ?>">
-                                                    <input required type="file" name="proof" class="form-control" accept="image/png,image/jpeg,image/jpg">
-                                                </div>
+                                                    createCountDown(document.getElementById('time').value, document.getElementById('countdown-<?= $booking["id"]; ?>'), function (expired) {
+                                                        var paymentButton = document.getElementById('payment-wrapper');
 
-                                                <div class="form-group mb-0">
-                                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                                        if (paymentButton !== null && expired) {
+                                                            paymentButton.style.display = 'none';
+                                                        } else if (paymentButton !== null && !expired) {
+                                                            paymentButton.style.display = 'inline-block';
+                                                        }
+                                                    });
+                                                </script>
+                                                <div id="payment-wrapper" style="display: none;">
+                                                    <div class="form-group">
+                                                        <label for="">Bukti Pembayaran</label>
+                                                        <input type="hidden" name="room_id" value="<?= $_GET['room_id']; ?>">
+                                                        <input type="hidden" name="booking_id" value="<?= $_GET['booking_id']; ?>">
+                                                        <input required type="file" name="proof" class="form-control" accept="image/png,image/jpeg,image/jpg">
+                                                    </div>
+
+                                                    <div class="form-group mb-0">
+                                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                                    </div>
                                                 </div>
                                             </form>
                                         </div>
